@@ -71,8 +71,8 @@ export const SCHEDULING_END_HOUR = 20;
 
 export const versionCodeAndroid = 29;
 export const versionNameAndroid = "1.0.29";
-export const versionCodeIOS = 41;
-export const versionNameIOS = "2.2.9";
+export const versionCodeIOS = 45;
+export const versionNameIOS = "3.0.4";
 
 export const fontFamily = '';
 export const LOADER_TIME_DELAY_PLUS = 10;

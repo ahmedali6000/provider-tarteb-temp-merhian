@@ -130,52 +130,106 @@ const handleContinue = async () => {
     }
   };
 
-  const handleGoogleLogin = async () => {
-    setLoading(true);
+  // const handleGoogleLogin = async () => {
+  //   setLoading(true);
 
-    try {
+  //   try {
+  //     await GoogleSignin.hasPlayServices({
+  //       showPlayServicesUpdateDialog: true,
+  //     });
+
+  //     const userInfo = await GoogleSignin.signIn();
+  //     const googleUser = userInfo?.user;
+
+  //     if (!googleUser?.email) {
+  //       Alert.alert(t('common.error'), t('login.social_failed'));
+  //       return;
+  //     }
+
+  //     const socialData = {
+  //       provider: 'google',
+  //       providerId: googleUser.id || '',
+  //       email: googleUser.email || '',
+  //       name: googleUser.name || '',
+  //       photo: googleUser.photo || '',
+  //       idToken: userInfo?.idToken || '',
+  //     };
+
+  //     await handleSocialResponse(socialData);
+  //   } catch (err) {
+  //     if (err?.code === statusCodes.SIGN_IN_CANCELLED) {
+  //       return;
+  //     }
+
+  //     if (err?.code === statusCodes.IN_PROGRESS) {
+  //       return;
+  //     }
+
+  //     if (err?.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+  //       Alert.alert(t('common.error'), t('login.play_services_error'));
+  //       return;
+  //     }
+
+  //     Alert.alert(t('common.error'), err?.message || t('login.social_failed'));
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
+
+
+  const handleGoogleLogin = async () => {
+ 
+  setLoading(true);
+
+  try {
+    if (Platform.OS === 'android') {
       await GoogleSignin.hasPlayServices({
         showPlayServicesUpdateDialog: true,
       });
-
-      const userInfo = await GoogleSignin.signIn();
-      const googleUser = userInfo?.user;
-
-      if (!googleUser?.email) {
-        Alert.alert(t('common.error'), t('login.social_failed'));
-        return;
-      }
-
-      const socialData = {
-        provider: 'google',
-        providerId: googleUser.id || '',
-        email: googleUser.email || '',
-        name: googleUser.name || '',
-        photo: googleUser.photo || '',
-        idToken: userInfo?.idToken || '',
-      };
-
-      await handleSocialResponse(socialData);
-    } catch (err) {
-      if (err?.code === statusCodes.SIGN_IN_CANCELLED) {
-        return;
-      }
-
-      if (err?.code === statusCodes.IN_PROGRESS) {
-        return;
-      }
-
-      if (err?.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-        Alert.alert(t('common.error'), t('login.play_services_error'));
-        return;
-      }
-
-      Alert.alert(t('common.error'), err?.message || t('login.social_failed'));
-    } finally {
-      setLoading(false);
     }
-  };
 
+    const userInfo = await GoogleSignin.signIn();
+    const googleUser = userInfo?.user;
+
+    if (!googleUser?.email) {
+      Alert.alert(t('common.error'), t('login.social_failed'));
+      return;
+    }
+
+    const socialData = {
+      provider: 'google',
+      providerId: googleUser.id || '',
+      email: googleUser.email || '',
+      name: googleUser.name || '',
+      photo: googleUser.photo || '',
+      idToken: userInfo?.idToken || '',
+    };
+
+    await handleSocialResponse(socialData);
+  } catch (err) {
+    if (err?.code === statusCodes.SIGN_IN_CANCELLED) {
+      return;
+    }
+
+    if (err?.code === statusCodes.IN_PROGRESS) {
+      return;
+    }
+
+    if (
+      Platform.OS === 'android' &&
+      err?.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE
+    ) {
+      Alert.alert(t('common.error'), t('login.play_services_error'));
+      return;
+    }
+
+    console.log('GOOGLE LOGIN ERROR:', err);
+    Alert.alert(t('common.error'), err?.message || t('login.social_failed'));
+  } finally {
+    setLoading(false);
+  }
+}; 
   const handleAppleLogin = async () => {
     if (Platform.OS !== 'ios') {
       return;

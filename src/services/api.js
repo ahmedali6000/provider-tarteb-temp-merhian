@@ -1,6 +1,7 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { domain, TOKEN_KEY, Language_KEY } from '../utils/app';
+import { domain, TOKEN_KEY, Language_KEY, versionCodeAndroid, versionCodeIOS } from '../utils/app';
+import { Platform } from 'react-native';
 
 const API_BASE_URL = domain + '/api/v2';
 
@@ -24,6 +25,8 @@ api.interceptors.request.use(
 
       config.headers.lang = lang || 'en';
       config.headers.userType = 'client';
+      config.headers.versionCode =  (Platform.OS == ('android')) ? versionCodeAndroid : versionCodeIOS;
+      config.headers.os =  Platform.OS;
     } catch (error) {
       console.log('REQUEST INTERCEPTOR ERROR:', error);
     }

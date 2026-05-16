@@ -137,9 +137,15 @@ export const completeLogin = async (response, dispatch) => {
 
   dispatch(loginStart());
 
+
+
+
+  
+
+
   dispatch(setToken(token));
   dispatch(setUser(user));
-
+ dispatch({type:Actions.UPGRADE,payload:response.upgrade})
   if (response.userData?.payment != 0) {
     dispatch({
       type: Actions.CHAHNGE_PAYMENT_FEATURE_STATUS,

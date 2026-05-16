@@ -128,6 +128,7 @@ const OTPScreen = ({ navigation, route }) => {
       // });
 
     } catch (err) {
+      alert(err)
       const errorMessage =
         err?.response?.data?.message ||
         err?.message ||

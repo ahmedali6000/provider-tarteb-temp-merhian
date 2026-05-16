@@ -17,16 +17,27 @@ import Svg, {Circle} from 'react-native-svg';
 import RNRestart from 'react-native-restart';
 import AppButton from '../../../component/AppButton';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Language_KEY } from '../../../utils/app';
+import { domain, Language_KEY } from '../../../utils/app';
  import { logout } from '../../../redux/actions';
+import axios from 'axios';
 
 
 const ProfileScreen = ({navigation}) => {
   const {t, i18n} = useTranslation();
   const user = useSelector(state => state.auth.user);
-
-
-   const dispatch = useDispatch();
+  const tokenK = useSelector(state => state.auth.token);
+   const [visible, setVisible] = React.useState(false);
+ const dispatch = useDispatch();
+    const [REMOVE_ACCOUNT_HANDLER_LOADER, CHANGE_REMOVE_ACCOUNT_HANDLER_LOADER] = React.useState(false);
+ const Logout = () => { 
+        dispatch(logout());
+    };
+   const REMOVE_ACCOUNT_HANDLER = () => {
+          
+          
+        }
+  
+    
 
   const [languageSheetVisible, setLanguageSheetVisible] = useState(false);
   const [logoutSheetVisible, setLogoutSheetVisible] = useState(false);
@@ -72,9 +83,81 @@ const ProfileScreen = ({navigation}) => {
 
   const handleRemoveAccount = () => {
     setRemoveAccountSheetVisible(false);
-    // remove account api هنا
+    var config = {method: 'delete',url: domain + `/api/remove-my-account`,headers: { 'Authorization': 'Bearer ' + tokenK ,'Content-Type': 'application/json','Accept': 'application/json'}};
+          axios(config).then(res => {
+              CHANGE_REMOVE_ACCOUNT_HANDLER_LOADER(true)
+              setTimeout(() => {
+                  CHANGE_REMOVE_ACCOUNT_HANDLER_LOADER(false)
+                  setVisible(false)
+              }, 800);
+              Logout();
+             
+          }).catch(err=>{
+            alert(err);
+              console.warn(err)
+          }).finally(() => {
+              
+          })
   };
 
+
+  const ConfirmBottomSheet = ({
+  visible,
+  onClose,
+  onConfirm,
+  title,
+  description,
+  confirmText,
+  cancelText,
+  danger = false,
+}) => {
+  return (
+    <Modal transparent visible={visible} animationType="fade">
+      <Pressable style={styles.sheetOverlay} onPress={onClose}>
+        <Pressable style={styles.confirmSheetContainer} onPress={() => {}}>
+          <View style={styles.sheetHandle} />
+
+          <AppText weight="bold" style={styles.confirmTitle}>
+            {title}
+          </AppText>
+
+          <AppText style={styles.sheetDescription}>
+            {description}
+          </AppText>
+
+          <View style={styles.confirmButtonsRow}>
+            <TouchableOpacity
+              style={[
+                styles.cancelButton,
+                danger && styles.cancelButtonDangerBorder,
+              ]}
+              onPress={onClose}>
+              <AppText
+                weight="bold"
+                style={[
+                  styles.cancelButtonText,
+                  danger && styles.cancelButtonDangerText,
+                ]}>
+                {cancelText}
+              </AppText>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={[
+                styles.confirmButton,
+                danger ? styles.dangerButton : styles.primaryButtonSheet,
+              ]}
+              onPress={onConfirm}>
+              <AppText weight="bold" style={styles.confirmButtonText}>
+                {confirmText}
+              </AppText>
+            </TouchableOpacity>
+          </View>
+        </Pressable>
+      </Pressable>
+    </Modal>
+  );
+};
   const menuItems = [
     {
       key: 'edit_profile',
@@ -300,7 +383,7 @@ const userLevelKey = useMemo(() => {
           <TouchableOpacity
             style={styles.removeAccountLink}
             onPress={() => setRemoveAccountSheetVisible(true)}>
-            <AppText style={styles.removeAccountText}>
+            <AppText weight='bold' style={styles.removeAccountText}>
               {t('profile.remove_account')}
             </AppText>
           </TouchableOpacity>
@@ -460,63 +543,7 @@ const LanguageBottomSheet = ({
   );
 };
 
-const ConfirmBottomSheet = ({
-  visible,
-  onClose,
-  onConfirm,
-  title,
-  description,
-  confirmText,
-  cancelText,
-  danger = false,
-}) => {
-  return (
-    <Modal transparent visible={visible} animationType="fade">
-      <Pressable style={styles.sheetOverlay} onPress={onClose}>
-        <Pressable style={styles.confirmSheetContainer} onPress={() => {}}>
-          <View style={styles.sheetHandle} />
 
-          <AppText weight="bold" style={styles.confirmTitle}>
-            {title}
-          </AppText>
-
-          <AppText style={styles.sheetDescription}>
-            {description}
-          </AppText>
-
-          <View style={styles.confirmButtonsRow}>
-            <TouchableOpacity
-              style={[
-                styles.cancelButton,
-                danger && styles.cancelButtonDangerBorder,
-              ]}
-              onPress={onClose}>
-              <AppText
-                weight="bold"
-                style={[
-                  styles.cancelButtonText,
-                  danger && styles.cancelButtonDangerText,
-                ]}>
-                {cancelText}
-              </AppText>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={[
-                styles.confirmButton,
-                danger ? styles.dangerButton : styles.primaryButtonSheet,
-              ]}
-              onPress={onConfirm}>
-              <AppText weight="bold" style={styles.confirmButtonText}>
-                {confirmText}
-              </AppText>
-            </TouchableOpacity>
-          </View>
-        </Pressable>
-      </Pressable>
-    </Modal>
-  );
-};
 
 export default ProfileScreen;
 
@@ -761,11 +788,14 @@ progressFill: {
 
   removeAccountLink: {
     alignSelf: 'center',
-    marginTop: 14,
+    marginTop: 25,
   },
   removeAccountText: {
-    fontSize: 14,
-    color: '#B0B0B0',
+    fontSize: 16,
+    color: 'red',
+    textDecorationColor:'red',
+    textDecorationLine:'underline'
+
   },
 
   sheetOverlay: {
