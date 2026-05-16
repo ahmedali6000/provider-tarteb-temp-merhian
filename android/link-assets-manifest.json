@@ -1,0 +1,37 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assets/fonts/Poppins-Bold.ttf",
+      "sha1": "875cf0cecd647bcf22e79d633d868c1b1ec98dfa"
+    },
+    {
+      "path": "assets/fonts/Poppins-Medium.ttf",
+      "sha1": "283f21b44efbdbf276ba802be2d949a36bbc4233"
+    },
+    {
+      "path": "assets/fonts/Poppins-Regular.ttf",
+      "sha1": "fdd3002e7d814ee47c1c1b8487c72c6bbb3a2d00"
+    },
+    {
+      "path": "assets/fonts/Poppins-SemiBold.ttf",
+      "sha1": "8a4ace9392d06bcb7f8ea2f5169b07e4c383a90d"
+    },
+    {
+      "path": "assets/fonts/Vazirmatn-Bold.ttf",
+      "sha1": "411ce48556741ee4de4dafd480e530cb871204b8"
+    },
+    {
+      "path": "assets/fonts/Vazirmatn-Medium.ttf",
+      "sha1": "791858af28c02c661da9da91c16e8db6a2d1153a"
+    },
+    {
+      "path": "assets/fonts/Vazirmatn-Regular.ttf",
+      "sha1": "ff556821748de10ebe1ffc7d786b66481b4c04d9"
+    },
+    {
+      "path": "assets/fonts/Vazirmatn-SemiBold.ttf",
+      "sha1": "a74a63c190219468aa636d4eae3017e069a5a8f2"
+    }
+  ]
+}

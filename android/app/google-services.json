@@ -1,0 +1,90 @@
+{
+  "project_info": {
+    "project_number": "232961590494",
+    "project_id": "tarteb-5be80",
+    "storage_bucket": "tarteb-5be80.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:232961590494:android:d8991ee943833dea59ee4f",
+        "android_client_info": {
+          "package_name": "app.tarteb.panel_customer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "232961590494-446h5meidt062hmvgdts41l7ctpt169i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "app.tarteb.panel_customer",
+            "certificate_hash": "6840dbfd5510274ba8995c5da49c6875a3760ee4"
+          }
+        },
+        {
+          "client_id": "232961590494-ngrqvqsblfo0lh057n6reghlj4l9brsl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgnefgdTJtlL-vJqczUUhqSXAsocD1ojY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "232961590494-e7embbrp3cti94l9pl9dspln7vcmdu0b.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "232961590494-eg3l346m3c9nlv22pmtv8i4qr01oi582.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "dfgdgd"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:232961590494:android:d9d84cf5e8477f6059ee4f",
+        "android_client_info": {
+          "package_name": "app.tarteb.panel_provider"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "232961590494-ngrqvqsblfo0lh057n6reghlj4l9brsl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgnefgdTJtlL-vJqczUUhqSXAsocD1ojY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "232961590494-e7embbrp3cti94l9pl9dspln7vcmdu0b.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "232961590494-eg3l346m3c9nlv22pmtv8i4qr01oi582.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "dfgdgd"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

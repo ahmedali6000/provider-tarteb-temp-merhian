@@ -1,0 +1,27 @@
+<svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+<mask id="mask0_742_15617" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="72" height="72">
+<path d="M72 0H0V72H72V0Z" fill="white"/>
+</mask>
+<g mask="url(#mask0_742_15617)">
+<path d="M0 36C0 6.354 6.354 0 36 0C65.646 0 72 6.354 72 36C72 65.646 65.646 72 36 72C6.354 72 0 65.646 0 36Z" fill="#2D93D2" fill-opacity="0.15"/>
+<g opacity="0.6" filter="url(#filter0_f_742_15617)">
+<path d="M36.0004 64.2858C50.202 64.2858 61.7147 60.8319 61.7147 56.5715C61.7147 52.311 50.202 48.8572 36.0004 48.8572C21.7988 48.8572 10.2861 52.311 10.2861 56.5715C10.2861 60.8319 21.7988 64.2858 36.0004 64.2858Z" fill="url(#paint0_linear_742_15617)"/>
+</g>
+</g>
+<path d="M42.2472 17.016C43.7237 17.1775 44.8172 18.5133 44.6287 20.0129L42.9414 33.4H50.934C51.7392 33.4 52.4706 33.8643 52.8089 34.5892C53.1471 35.3145 53.0301 36.1685 52.5082 36.7774L35.1326 57.0552C34.6184 57.6546 33.8634 58 33.0698 58C31.4235 57.9992 30.1587 56.5517 30.3915 54.935L32.0163 43.65H24.0661C23.2781 43.6498 22.5586 43.2045 22.2113 42.5028C21.8643 41.8013 21.9496 40.9651 22.4312 40.3468L39.8069 18.041L40.0107 17.8088C40.5163 17.2947 41.2138 17.0001 41.9465 17L42.2472 17.016Z" fill="url(#paint1_radial_742_15617)"/>
+<defs>
+<filter id="filter0_f_742_15617" x="6.28613" y="44.8572" width="59.4287" height="23.4285" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="2" result="effect1_foregroundBlur_742_15617"/>
+</filter>
+<linearGradient id="paint0_linear_742_15617" x1="36.0004" y1="48.8572" x2="36.0004" y2="64.2858" gradientUnits="userSpaceOnUse">
+<stop stop-color="#1EB4EB" stop-opacity="0"/>
+<stop offset="1" stop-color="#1EB4EB"/>
+</linearGradient>
+<radialGradient id="paint1_radial_742_15617" cx="0" cy="0" r="1" gradientTransform="matrix(30.9998 40.3875 -19.1977 25.7754 21.9999 16.9987)" gradientUnits="userSpaceOnUse">
+<stop stop-color="#8ED9F5"/>
+<stop offset="0.5" stop-color="#2D93D2"/>
+</radialGradient>
+</defs>
+</svg>
