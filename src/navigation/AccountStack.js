@@ -11,18 +11,7 @@ import ChangePassScreen from '../screens/Account/Password/ChangePassScreen';
 import ChangePhone from '../screens/Account/change_phone/ChangePhone';
 import EnterNewPhone from '../screens/Account/change_phone/EnterNewPhone';
 
-// Location Screens
-import LocationSelectScreen from '../screens/CHOOSE_LOCATION/LocationSelectScreen';
-import UserLocationScreen from '../screens/Account/UserLocationScreen';
-import AddLocation from '../screens/Account/AddLocation';
-
-// Wallet Screens
-import Wallet from '../screens/wallet';
-import Incomes from '../screens/wallet/Incomes';
-import Outcomes from '../screens/wallet/Outcomes';
-import PayWithCard from '../screens/wallet/PayWithCard';
-import PayWithAltPayment from '../screens/wallet/PayWithAltPayment';
-
+ 
 // Fawaterak Screens
 import PayRedirectScreen from '../screens/Fawaterak/PayRedirectScreen';
 import ResponseScreen from '../screens/Fawaterak/Responses/ResponseScreen';
@@ -51,6 +40,7 @@ import OrderPaymentChannelsScreen from "../screens/v2/payment/OrderPaymentChanne
 import OrderCardPaymentWebViewScreen from "../screens/v2/payment/methods/OrderCardPaymentWebViewScreen";
 import OrderPaymentCodeScreen from "../screens/v2/payment/methods/OrderPaymentCodeScreen";
 import OrderPhoneWalletScreen from "../screens/v2/payment/methods/OrderPhoneWalletScreen";
+import RatingsScreen from "../screens/Account/v2/ratings/RatingsScreen";
 
 
 
@@ -75,12 +65,14 @@ export function AccountStack() {
             <Stack.Screen name="PaymentMethods" component={PaymentMethods} />
             <Stack.Screen name="HelpCenter" component={HelpCenter} />
             <Stack.Screen name="AbourCenter" component={AbourCenter} />
+            <Stack.Screen name="RatingsScreen" component={RatingsScreen} />
+
             <Stack.Screen name="FaqScreen" component={FaqScreen} />
             <Stack.Screen name="AboutDocScreen" component={AboutDocScreen} />
             <Stack.Screen name="SupportMessagesScreen" component={SupportMessagesScreen} /> 
             <Stack.Screen name="ContactSupportScreen" component={ContactSupportScreen} />
             <Stack.Screen name="LoyaltyScreen" component={LoyaltyScreen} />
-            <Stack.Screen name="AddressesScreen" component={AddressesScreen} />
+            
             <Stack.Screen name="AddressDetailsScreen" component={AddressDetailsScreen} />
             <Stack.Screen name="PickAddressMapScreen" component={PickAddressMapScreen} /> 
             <Stack.Screen name="OrderPaymentChannelsScreen" component={OrderPaymentChannelsScreen} />
@@ -95,17 +87,9 @@ export function AccountStack() {
             <Stack.Screen name="ChangePhone" component={ChangePhone} options={{ unmountOnBlur: true }} />
             <Stack.Screen name="EnterNewPhone" component={EnterNewPhone} options={{ unmountOnBlur: true }} />
 
-            {/* Locations */}
-            <Stack.Screen name="LocationSelectScreen" component={LocationSelectScreen} options={{ unmountOnBlur: true }} />
-            <Stack.Screen name="UserLocationScreen" component={UserLocationScreen} options={{ unmountOnBlur: true }} />
-            <Stack.Screen name="AddLocation" component={AddLocation} options={{ unmountOnBlur: true }} />
+        
 
-            {/* Wallet & Payments */}
-            {/* <Stack.Screen name="Wallet" component={Wallet} options={{ unmountOnBlur: true }} /> */}
-            <Stack.Screen name="Incomes" component={Incomes} options={{ unmountOnBlur: true }} />
-            <Stack.Screen name="Outcomes" component={Outcomes} options={{ unmountOnBlur: true }} />
-            <Stack.Screen name="PayWithCard" component={PayWithCard} options={{ unmountOnBlur: true }} />
-            <Stack.Screen name="PayWithAltPayment" component={PayWithAltPayment} options={{ unmountOnBlur: true }} />
+         
 
             {/* Fawaterak Integration */}
             {/* <Stack.Screen name="PaymentMethods" component={PaymentMethods} options={{ unmountOnBlur: true }} /> */}

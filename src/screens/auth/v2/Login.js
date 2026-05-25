@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {
   View,
   StyleSheet,
@@ -8,11 +8,11 @@ import {
   Keyboard,
   Alert,
   I18nManager,
-  Platform,
+  Linking,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import Modal from 'react-native-modal';
 import AppButton from '../../../component/AppButton';
-import SocialButton from '../../../component/SocialButton';
 import PhoneInput from '../../../component/PhoneInput';
 import AppText from '../../../shared/AppText';
 import CountryBottomSheet from '../../../component/CountryBottomSheet';
@@ -21,17 +21,13 @@ import {countries, validatePhoneNumber} from '../../../utils/DATA';
 import {useTranslation} from 'react-i18next';
 import {
   requestOtp,
-  checkSocialLogin,
-  completeLogin,
+  checkProviderPhone,
 } from '../../../services/authService';
 import Ionicons from '@react-native-vector-icons/ionicons';
-import {GoogleSignin, statusCodes} from '@react-native-google-signin/google-signin';
-import {appleAuth} from '@invertase/react-native-apple-authentication';
-import {jwtDecode} from 'jwt-decode';
-import {useDispatch} from 'react-redux';
+
+const CLIENT_APP_ONE_LINK = 'https://tarteb.app/client';
 
 const LoginScreen = ({navigation}) => {
-  const dispatch = useDispatch();
   const {t} = useTranslation();
 
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -41,12 +37,11 @@ const LoginScreen = ({navigation}) => {
   const [agreed, setAgreed] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    GoogleSignin.configure({
-      webClientId:
-        '232961590494-ngrqvqsblfo0lh057n6reghlj4l9brsl.apps.googleusercontent.com',
-    });
-  }, []);
+  const [clientAccountModalVisible, setClientAccountModalVisible] =
+    useState(false);
+  const [pendingPhone, setPendingPhone] = useState('');
+
+  const tr = (key, fallback) => t(key, {defaultValue: fallback});
 
   const handlePhoneChange = text => {
     const numericValue = text.replace(/[^0-9]/g, '');
@@ -57,230 +52,165 @@ const LoginScreen = ({navigation}) => {
     }
   };
 
-const handleContinue = async () => {
-  Keyboard.dismiss();
+  const getValidatedFullPhone = () => {
+    const validation = validatePhoneNumber(phoneNumber, selectedCountry);
 
-  if (!agreed) {
-    
-    return;
-  }
+    if (!validation.isValid) {
+      setError(validation.error);
+      return null;
+    }
 
-  const validation = validatePhoneNumber(phoneNumber, selectedCountry);
+    return selectedCountry.code + validation.cleanNumber;
+  };
 
-  if (!validation.isValid) {
-    setError(validation.error);
-    return;
-  }
-
-  const fullPhone = selectedCountry.code + validation.cleanNumber;
-
-  setLoading(true);
-
-  try {
+  const sendOtpAndNavigate = async ({fullPhone, joinAsProvider = false}) => {
     await requestOtp(fullPhone);
 
     navigation.navigate('OTPScreen', {
       phone: fullPhone,
+      joinAsProvider,
     });
-  } catch (err) {
-    const errorMessage =
-      err?.response?.data?.message ||
-      err?.message ||
-      t('login.otp_request_failed');
-
-    Alert.alert(t('common.error'), errorMessage);
-  } finally {
-    setLoading(false);
-  }
-};
-
-  const handleSocialResponse = async socialData => {
-    try {
-      const response = await checkSocialLogin(socialData);
-
-      /**
-       * لو المستخدم موجود في قاعدة البيانات
-       * وعنده name + phone
-       * الباك إند يرجع login = true
-       */
-      if (response?.status === true && response?.login === true) {
-        await completeLogin(response, dispatch);
-        return;
-      }
-
-      /**
-       * لو المستخدم جديد أو ناقص بيانات
-       * يروح يكمل الاسم والهاتف
-       */
-      navigation.navigate('CompleteMissingDataScreen', {
-        socialData: {
-          ...socialData,
-          name: response?.user?.name || socialData.name || '',
-          email: response?.user?.email || socialData.email || '',
-          phone: response?.user?.phone || '',
-        },
-      });
-    } catch (err) {
-      const errorMessage =
-        err?.response?.data?.message ||
-        err?.message ||
-        t('login.social_failed');
-
-      Alert.alert(t('common.error'), errorMessage);
-    }
   };
 
-  // const handleGoogleLogin = async () => {
-  //   setLoading(true);
+  const handleContinue = async () => {
+    Keyboard.dismiss();
 
-  //   try {
-  //     await GoogleSignin.hasPlayServices({
-  //       showPlayServicesUpdateDialog: true,
-  //     });
-
-  //     const userInfo = await GoogleSignin.signIn();
-  //     const googleUser = userInfo?.user;
-
-  //     if (!googleUser?.email) {
-  //       Alert.alert(t('common.error'), t('login.social_failed'));
-  //       return;
-  //     }
-
-  //     const socialData = {
-  //       provider: 'google',
-  //       providerId: googleUser.id || '',
-  //       email: googleUser.email || '',
-  //       name: googleUser.name || '',
-  //       photo: googleUser.photo || '',
-  //       idToken: userInfo?.idToken || '',
-  //     };
-
-  //     await handleSocialResponse(socialData);
-  //   } catch (err) {
-  //     if (err?.code === statusCodes.SIGN_IN_CANCELLED) {
-  //       return;
-  //     }
-
-  //     if (err?.code === statusCodes.IN_PROGRESS) {
-  //       return;
-  //     }
-
-  //     if (err?.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-  //       Alert.alert(t('common.error'), t('login.play_services_error'));
-  //       return;
-  //     }
-
-  //     Alert.alert(t('common.error'), err?.message || t('login.social_failed'));
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
-
-
-  const handleGoogleLogin = async () => {
- 
-  setLoading(true);
-
-  try {
-    if (Platform.OS === 'android') {
-      await GoogleSignin.hasPlayServices({
-        showPlayServicesUpdateDialog: true,
-      });
-    }
-
-    const userInfo = await GoogleSignin.signIn();
-    const googleUser = userInfo?.user;
-
-    if (!googleUser?.email) {
-      Alert.alert(t('common.error'), t('login.social_failed'));
+    if (!agreed) {
       return;
     }
 
-    const socialData = {
-      provider: 'google',
-      providerId: googleUser.id || '',
-      email: googleUser.email || '',
-      name: googleUser.name || '',
-      photo: googleUser.photo || '',
-      idToken: userInfo?.idToken || '',
-    };
+    const fullPhone = getValidatedFullPhone();
 
-    await handleSocialResponse(socialData);
-  } catch (err) {
-    if (err?.code === statusCodes.SIGN_IN_CANCELLED) {
-      return;
-    }
-
-    if (err?.code === statusCodes.IN_PROGRESS) {
-      return;
-    }
-
-    if (
-      Platform.OS === 'android' &&
-      err?.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE
-    ) {
-      Alert.alert(t('common.error'), t('login.play_services_error'));
-      return;
-    }
-
-    console.log('GOOGLE LOGIN ERROR:', err);
-    Alert.alert(t('common.error'), err?.message || t('login.social_failed'));
-  } finally {
-    setLoading(false);
-  }
-}; 
-  const handleAppleLogin = async () => {
-    if (Platform.OS !== 'ios') {
+    if (!fullPhone) {
       return;
     }
 
     setLoading(true);
 
     try {
-      const appleAuthRequestResponse = await appleAuth.performRequest({
-        requestedOperation: appleAuth.Operation.LOGIN,
-        requestedScopes: [appleAuth.Scope.FULL_NAME, appleAuth.Scope.EMAIL],
+      const checkResponse = await checkProviderPhone(fullPhone);
+
+      if (checkResponse?.needs_provider_confirmation) {
+        setPendingPhone(fullPhone);
+        setClientAccountModalVisible(true);
+        return;
+      }
+
+      await sendOtpAndNavigate({
+        fullPhone,
+        joinAsProvider: false,
       });
-
-      const credentialState = await appleAuth.getCredentialStateForUser(
-        appleAuthRequestResponse.user,
-      );
-
-      if (credentialState !== appleAuth.State.AUTHORIZED) {
-        Alert.alert(t('common.error'), t('login.social_failed'));
-        return;
-      }
-
-      let decodedToken = null;
-
-      if (appleAuthRequestResponse.identityToken) {
-        decodedToken = jwtDecode(appleAuthRequestResponse.identityToken);
-      }
-
-      const firstName = appleAuthRequestResponse?.fullName?.givenName || '';
-      const lastName = appleAuthRequestResponse?.fullName?.familyName || '';
-      const fullName = `${firstName} ${lastName}`.trim();
-
-      const socialData = {
-        provider: 'apple',
-        providerId: decodedToken?.sub || appleAuthRequestResponse.user || '',
-        email: decodedToken?.email || appleAuthRequestResponse.email || '',
-        name: fullName,
-        photo: '',
-        idToken: appleAuthRequestResponse.identityToken || '',
-      };
-
-      await handleSocialResponse(socialData);
     } catch (err) {
-      if (err?.code === appleAuth.Error.CANCELED) {
-        return;
-      }
+      const errorMessage =
+        err?.response?.data?.message ||
+        err?.message ||
+        t('login.otp_request_failed');
 
-      Alert.alert(t('common.error'), err?.message || t('login.social_failed'));
+      Alert.alert(t('common.error'), errorMessage);
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleDownloadClientApp = async () => {
+    try {
+      setClientAccountModalVisible(false);
+      await Linking.openURL(CLIENT_APP_ONE_LINK);
+    } catch (err) {
+      Alert.alert(
+        tr('common.error', 'خطأ'),
+        tr('login.cannot_open_link', 'تعذر فتح الرابط'),
+      );
+    }
+  };
+
+  const handleJoinAsProvider = async () => {
+    if (!pendingPhone) {
+      return;
+    }
+
+    setClientAccountModalVisible(false);
+    setLoading(true);
+
+    try {
+      await sendOtpAndNavigate({
+        fullPhone: pendingPhone,
+        joinAsProvider: true,
+      });
+    } catch (err) {
+      const errorMessage =
+        err?.response?.data?.message ||
+        err?.message ||
+        t('login.otp_request_failed');
+
+      Alert.alert(t('common.error'), errorMessage);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const renderClientAccountModal = () => {
+    return (
+      <Modal
+        isVisible={clientAccountModalVisible}
+        backdropOpacity={0.55}
+        animationIn="fadeInUp"
+        animationOut="fadeOutDown"
+        useNativeDriver
+        hideModalContentWhileAnimating
+        onBackdropPress={() => setClientAccountModalVisible(false)}
+        onBackButtonPress={() => setClientAccountModalVisible(false)}
+        style={styles.modalWrapper}>
+        <View style={styles.modalCard}>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            style={styles.modalCloseButton}
+            onPress={() => setClientAccountModalVisible(false)}>
+            <Ionicons name="close" size={28} color="#8B8B8B" />
+          </TouchableOpacity>
+
+          <AppText weight="bold" style={styles.modalTitle}>
+            {tr(
+              'provider_join_modal.title',
+              'الانضمام كمقدم خدمة',
+            )}
+          </AppText>
+
+          <AppText style={styles.modalDescription}>
+            {tr(
+              'provider_join_modal.description',
+              'هذا الرقم مسجل حاليًا في تطبيق العميل. إذا كنت ترغب في الانضمام إلينا كمقدم خدمة يمكنك استكمال التسجيل الآن، أو تحميل تطبيق العميل إذا كنت دخلت بالخطأ.',
+            )}
+          </AppText>
+
+          <View style={styles.modalButtonsRow}>
+            <TouchableOpacity
+              activeOpacity={0.85}
+              style={styles.modalSecondaryButton}
+              onPress={handleDownloadClientApp}>
+              <AppText weight="bold" style={styles.modalSecondaryButtonText}>
+                {tr(
+                  'provider_join_modal.download_client_app',
+                  'تحميل تطبيق العميل',
+                )}
+              </AppText>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              activeOpacity={0.85}
+              style={styles.modalPrimaryButton}
+              onPress={handleJoinAsProvider}>
+              <AppText weight="bold" style={styles.modalPrimaryButtonText}>
+                {tr(
+                  'provider_join_modal.join_as_provider',
+                  'نعم، أريد الانضمام',
+                )}
+              </AppText>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+    );
   };
 
   return (
@@ -304,10 +234,16 @@ const handleContinue = async () => {
             <AppText style={styles.welcomeSubtitle}>
               {t('login.subtitle')}
             </AppText>
+
+            <View style={styles.progressTrack}>
+              <View style={styles.progressActive} />
+            </View>
           </View>
 
           <View style={styles.inputSection}>
-            <AppText style={styles.inputLabel}>{t('login.phone')}</AppText>
+            <AppText style={styles.inputLabel}>
+              {t('login.phone')}
+            </AppText>
 
             <PhoneInput
               value={phoneNumber}
@@ -315,16 +251,16 @@ const handleContinue = async () => {
               country={selectedCountry}
               onOpenSheet={() => setIsSheetVisible(true)}
               error={error}
-              onClear={() => setPhoneNumber('')}
+              onClear={() => {
+                setPhoneNumber('');
+                setError(null);
+              }}
             />
           </View>
 
           <TouchableOpacity
-            style={[
-              styles.termsContainer,
-              {flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse'},
-            ]}
-            onPress={() => setAgreed(!agreed)}
+            style={styles.termsContainer}
+            onPress={() => setAgreed(prev => !prev)}
             activeOpacity={0.75}>
             <View style={[styles.checkbox, agreed && styles.checkedBox]}>
               {agreed && (
@@ -332,19 +268,19 @@ const handleContinue = async () => {
               )}
             </View>
 
-            <View
-              style={[
-                styles.termsTextWrapper,
-                {flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse'},
-              ]}>
+            <View style={styles.termsTextWrapper}>
               <AppText style={styles.termsText}>
                 {t('login.agree')}{' '}
               </AppText>
 
-              <TouchableOpacity activeOpacity={0.7} onPress={() =>  navigation.navigate('AboutDocScreen', {
-                title: t('about_main.privacy_policy'),
-                doc: 'privacy',
-              })}>
+              <TouchableOpacity
+                activeOpacity={0.7}
+                onPress={() =>
+                  navigation.navigate('AboutDocScreen', {
+                    title: t('about_main.privacy_policy'),
+                    doc: 'privacy',
+                  })
+                }>
                 <AppText style={styles.termsLink}>
                   {t('login.terms')}
                 </AppText>
@@ -359,47 +295,6 @@ const handleContinue = async () => {
             textStyle={!agreed ? styles.disabledButtonText : {}}
             disabled={!agreed}
           />
-
-          <View style={styles.dividerContainer}>
-            <View style={styles.dividerLine} />
-            <AppText style={styles.dividerText}>{t('login.or')}</AppText>
-            <View style={styles.dividerLine} />
-          </View>
-
-          <View style={styles.socialContainer}>
-            <SocialButton
-              title={t('login.google')}
-              icon={require('./../../../../assets/app/images/icons/google-icon.png')}
-              onPress={handleGoogleLogin}
-            />
-
-            {Platform.OS === 'ios' && (
-              <SocialButton
-                title={t('login.apple')}
-                icon={require('./../../../../assets/app/images/icons/apple-icon.png')}
-                type="apple"
-                onPress={handleAppleLogin}
-              />
-            )}
-          </View>
-
-          <View style={styles.footerContainer}>
-            <AppText weight="bold" style={styles.footerTitle}>
-              {t('login.provider')}
-            </AppText>
-
-            <View style={styles.footerSubtitleWrapper}>
-              <AppText style={styles.footerSubtitle}>
-                {t('login.provider_sub')}
-              </AppText>
-
-              <TouchableOpacity>
-                <AppText weight="bold" style={styles.downloadLink}>
-                  {t('login.download')}
-                </AppText>
-              </TouchableOpacity>
-            </View>
-          </View>
         </View>
       </SafeAreaView>
 
@@ -411,6 +306,8 @@ const handleContinue = async () => {
           setError(null);
         }}
       />
+
+      {renderClientAccountModal()}
     </View>
   );
 };
@@ -418,132 +315,213 @@ const handleContinue = async () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 50,
     backgroundColor: '#FFFFFF',
   },
+
   content: {
     flex: 1,
-    paddingHorizontal: 25,
+    paddingHorizontal: 24,
     alignItems: 'stretch',
-    paddingTop: 40,
+    justifyContent: 'center',
   },
+
   headerContainer: {
     alignItems: 'center',
-    marginBottom: 40,
+    marginBottom: 38,
   },
+
   welcomeTitle: {
-    fontSize: 28,
-    color: '#000',
-    marginBottom: 10,
+    fontSize: 25,
+    color: '#1C1C1C',
+    marginBottom: 30,
     textAlign: 'center',
   },
+
   welcomeSubtitle: {
-    fontSize: 16,
-    color: '#888',
+    fontSize: 13,
+    color: '#8E8E8E',
     textAlign: 'center',
-    lineHeight: 24,
-    paddingHorizontal: 20,
+    lineHeight: 21,
   },
+
+  progressTrack: {
+    width: '90%',
+    height: 12,
+    borderRadius: 8,
+    backgroundColor: '#E6E6E6',
+    overflow: 'hidden',
+    marginTop: 25,
+    marginBottom: 20,
+  },
+
+  progressActive: {
+    width: '20%',
+    height: '100%',
+    borderRadius: 8,
+    backgroundColor: '#F58220',
+    alignSelf: I18nManager.isRTL ? 'flex-start' : 'flex-end',
+  },
+
   inputSection: {
     width: '100%',
     marginBottom: 15,
   },
+
   inputLabel: {
-    fontSize: 14,
-    color: '#333',
+    fontSize: 12,
+    color: '#333333',
     marginBottom: 8,
-    marginStart: 5,
+    marginEnd: 5,
     textAlign: 'auto',
   },
+
   termsContainer: {
-    alignItems: 'center',
     width: '100%',
-    marginBottom: 30,
-    justifyContent: 'flex-start',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    marginTop: 2,
+    marginBottom: 28,
   },
+
   checkbox: {
-    width: 22,
-    height: 22,
-    borderRadius: 7,
-    borderWidth: 1.6,
+    width: 20,
+    height: 20,
+    borderRadius: 5,
+    borderWidth: 1.5,
     borderColor: '#3498db',
     backgroundColor: '#FFFFFF',
     alignItems: 'center',
     justifyContent: 'center',
+    marginEnd: 8,
   },
+
   checkedBox: {
     backgroundColor: '#3498db',
     borderColor: '#3498db',
   },
+
   termsTextWrapper: {
-    flex: 1,
+    flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',
-    marginHorizontal: 10,
+    justifyContent: 'flex-start',
+    flex: 1,
   },
+
   termsText: {
-    fontSize: 14,
-    color: '#666',
-    lineHeight: 22,
+    fontSize: 11.5,
+    color: '#777777',
+    lineHeight: 20,
   },
+
   termsLink: {
-    fontSize: 14,
+    fontSize: 11.5,
     color: '#3498db',
-    lineHeight: 22,
+    lineHeight: 20,
     textDecorationLine: 'underline',
   },
+
   mainButton: {
     backgroundColor: '#3498db',
+    height: 52,
+    borderRadius: 13,
   },
+
   disabledButton: {
     backgroundColor: '#D6EAF8',
   },
+
   disabledButtonText: {
-    color: '#FFF',
+    color: '#FFFFFF',
   },
-  dividerContainer: {
-    flexDirection: 'row',
+
+  modalWrapper: {
+    margin: 0,
+    justifyContent: 'center',
     alignItems: 'center',
-    width: '100%',
-    marginVertical: 25,
+    paddingHorizontal: 30,
   },
-  dividerLine: {
+
+  modalCard: {
+    width: '100%',
+    backgroundColor: '#FFFFFF',
+    borderRadius: 24,
+    paddingTop: 48,
+    paddingHorizontal: 18,
+    paddingBottom: 22,
+    alignItems: 'center',
+  },
+
+  modalCloseButton: {
+    position: 'absolute',
+    top: 18,
+    left: 18,
+    width: 34,
+    height: 34,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  modalTitle: {
+    fontSize: 23,
+    color: '#1C1C1C',
+    textAlign: 'center',
+    lineHeight: 32,
+    marginBottom: 12,
+  },
+
+  modalDescription: {
+    width: '92%',
+    fontSize: 13,
+    color: '#8B8B8B',
+    textAlign: 'center',
+    lineHeight: 23,
+    marginBottom: 24,
+  },
+
+  modalButtonsRow: {
+    width: '100%',
+    flexDirection: I18nManager.isRTL ? 'row-reverse' : 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+
+  modalPrimaryButton: {
     flex: 1,
-    height: 1,
-    backgroundColor: '#F0F0F0',
-  },
-  dividerText: {
-    marginHorizontal: 15,
-    color: '#999',
-    fontSize: 14,
-  },
-  socialContainer: {
-    width: '100%',
-    marginBottom: 30,
-  },
-  footerContainer: {
+    height: 52,
+    borderRadius: 13,
+    backgroundColor: '#3498db',
     alignItems: 'center',
-    marginTop: 'auto',
-    marginBottom: 20,
+    justifyContent: 'center',
+    marginStart: I18nManager.isRTL ? 0 : 7,
+    marginEnd: I18nManager.isRTL ? 7 : 0,
   },
-  footerTitle: {
-    fontSize: 16,
-    color: '#000',
-    marginBottom: 5,
+
+  modalSecondaryButton: {
+    flex: 1,
+    height: 52,
+    borderRadius: 13,
+    backgroundColor: '#FFFFFF',
+    borderWidth: 1,
+    borderColor: '#3498db',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginEnd: I18nManager.isRTL ? 0 : 7,
+    marginStart: I18nManager.isRTL ? 7 : 0,
+  },
+
+  modalPrimaryButtonText: {
+    fontSize: 12.5,
+    color: '#FFFFFF',
     textAlign: 'center',
   },
-  footerSubtitleWrapper: {
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
-    alignItems: 'center',
-  },
-  footerSubtitle: {
-    fontSize: 13,
-    color: '#888',
-  },
-  downloadLink: {
-    fontSize: 13,
-    color: '#f39c12',
+
+  modalSecondaryButtonText: {
+    fontSize: 12.5,
+    color: '#3498db',
+    textAlign: 'center',
   },
 });
 
-export default LoginScreen; 
+export default LoginScreen;

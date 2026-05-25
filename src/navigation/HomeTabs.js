@@ -6,10 +6,11 @@ import { useTranslation } from 'react-i18next';
 import {HomeStack} from './HomeStack';
 import {OrderStack} from './OrderStack';
 import {AccountStack} from './AccountStack';
-import {BundleStack} from './BundleStack';
+ import { MessageStack } from "./MessageStack";
 
 // Custom Tab
 import CustomTabBar from "../component/Tabs/CustomTabBar";
+
 
 const Tab = createBottomTabNavigator();
 
@@ -24,7 +25,7 @@ export function HomeTabs() {
       <Tab.Screen 
         name="HomeStack" 
         component={HomeStack}  
-        options={{ tabBarLabel: t('drawer.home') }}
+        options={{ tabBarLabel: t('homeTabs.home') }}
       />
       <Tab.Screen 
         name="OrderStack" 
@@ -32,14 +33,14 @@ export function HomeTabs() {
         options={{ tabBarLabel: t('homeTabs.orders') }}
       />
       <Tab.Screen 
-        name="BundleStack" 
-        component={BundleStack}
-        options={{ tabBarLabel: t('bundles.title') }}
+        name="MessageStack" 
+        component={MessageStack}
+        options={{ tabBarLabel: t('homeTabs.chat') }}
       />
       <Tab.Screen 
         name="AccountStack" 
         component={AccountStack}
-        options={{ tabBarLabel: t('myaccount.title') }}
+        options={{ tabBarLabel: t('homeTabs.myaccount') }}
       />
     </Tab.Navigator>
   );

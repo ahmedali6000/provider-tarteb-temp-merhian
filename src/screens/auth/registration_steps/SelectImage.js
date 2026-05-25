@@ -15,7 +15,7 @@ import { StyleSheet } from 'react-native';
 import AuthHeader from '../../../shared/AuthHeader';
 import { useDispatch, useSelector } from 'react-redux';
 import { SET_CATEGORY_ID, UPLOAD_IMAGE_REG } from '../../../redux/actions/ActionTypes';
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import { launchImageLibrary} from 'react-native-image-picker';
 import { register } from '../../../redux/actions';
 import { TouchableOpacity } from 'react-native';
 

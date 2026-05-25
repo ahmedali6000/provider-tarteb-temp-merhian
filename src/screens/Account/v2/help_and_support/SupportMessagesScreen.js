@@ -95,9 +95,11 @@ if (pageNumber === 1) {
     }
   }, []);
 
-  useEffect(() => {
+useFocusEffect(
+  useCallback(() => {
     fetchMessages({pageNumber: 1});
-  }, [fetchMessages]);
+  }, [fetchMessages]),
+);
 
   const onRefresh = () => {
     fetchMessages({pageNumber: 1, refresh: true});
@@ -209,9 +211,9 @@ const renderMessage = ({item}) => {
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
         <AppHeader
-         titleKey="contact_support.title"
-          onBack={() => navigation.goBack()}
-        />
+  titleKey="contact_support.title"
+  onBack={() => navigation.navigate('ProfileScreen')}
+/>
 
         <AppText weight="bold" style={styles.listTitle}>
            {t('contact_support.list_title')}

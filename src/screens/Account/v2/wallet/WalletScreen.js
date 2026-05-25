@@ -27,7 +27,7 @@ const WalletScreen = ({navigation}) => {
   const isRTL = I18nManager.isRTL;
 
   
-  const balance = useSelector(state => state.auth.wallet);
+  const balance = useSelector(state => state.auth.credit);
 const user = useSelector(state => state.auth.user);
 
   const [transactions, setTransactions] = useState([]);

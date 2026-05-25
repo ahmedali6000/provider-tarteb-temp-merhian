@@ -33,7 +33,6 @@ import SearchScreen from "../screens/Home/SearchScreen";
 import TraditionalView from "../screens/v2/categories/Traditional/TraditionalView";
 import TraditionalServicesScreen from "../screens/v2/categories/Traditional/TraditionalServicesScreen";
 import NotificationsScreen from "../screens/Account/v2/notifications/NotificationsScreen";
-import CreatePreviewOrderScreen from "../screens/v2/Services/CreatePreviewOrderScreen";
 import CleaningCategoriesView from "../screens/v2/categories/CleaningCategoriesView";
 import CleaningScreen from "../screens/v2/categories/Traditional/CleaningScreen";
 import OrderReviewScreen from "../screens/v2/categories/orderReview/OrderReviewScreen";
@@ -74,7 +73,7 @@ export function HomeStack() {
       <Stack.Screen name="CleaningScreen" component={CleaningScreen} />
        <Stack.Screen name="SubCategoryScreen" component={SubCategoryScreen} />
       <Stack.Screen name="TraditionalServicesScreen" component={TraditionalServicesScreen} />
-      <Stack.Screen name="CreatePreviewOrderScreen" component={CreatePreviewOrderScreen} />
+      
       {/* <Stack.Screen name="ServiceScreen" component={ServiceScreen} />  */}
 
       {/* Order Review Flow */}

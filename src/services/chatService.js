@@ -78,3 +78,26 @@ export const sendOrderComplaint = async ({
 
   return response.data;
 };
+
+
+
+// provider part
+export const getChatConversations = async ({
+  filter = 'all',
+  page = 1,
+  perPage = 20,
+} = {}) => {
+  try {
+    const response = await api.get('/chat/conversations', {
+      params: {
+        filter,
+        page,
+        per_page: perPage,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};

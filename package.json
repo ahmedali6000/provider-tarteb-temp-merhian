@@ -1,5 +1,5 @@
 {
-  "name": "app.tarteb.panel_customer",
+  "name": "app.tarteb.panel_provider",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -12,11 +12,13 @@
     "adbR": "adb reverse tcp:8081 tcp:8081"
   },
   "dependencies": {
+    "@bam.tech/react-native-image-resizer": "^3.0.11",
     "@invertase/react-native-apple-authentication": "^2.5.1",
     "@notifee/react-native": "^9.1.8",
     "@perttu/react-native-phone-number-input": "^2.1.7",
     "@react-native-async-storage/async-storage": "^3.0.1",
     "@react-native-community/geolocation": "^3.4.0",
+    "@react-native-community/image-editor": "^4.3.0",
     "@react-native-community/netinfo": "^12.0.1",
     "@react-native-firebase/analytics": "^23.8.8",
     "@react-native-firebase/app": "^23.8.8",
@@ -47,6 +49,7 @@
     "react-native-gesture-handler": "^2.30.0",
     "react-native-get-location": "^6.0.1",
     "react-native-google-places-autocomplete": "^2.6.4",
+    "react-native-image-base64": "^0.1.4",
     "react-native-image-crop-picker": "^0.51.1",
     "react-native-image-placeholder": "^1.0.14",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
@@ -66,6 +69,7 @@
     "react-native-snap-carousel": "^3.9.1",
     "react-native-svg": "^15.15.4",
     "react-native-svg-transformer": "^1.5.3",
+    "react-native-vision-camera": "^4.7.2",
     "react-native-webview": "^13.16.1",
     "react-redux": "^9.2.0",
     "reactotron-react-native": "^5.1.18",

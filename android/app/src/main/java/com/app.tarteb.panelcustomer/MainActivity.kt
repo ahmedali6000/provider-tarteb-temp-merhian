@@ -1,4 +1,4 @@
-package app.tarteb.panel_customer
+package app.tarteb.panel_provider
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate

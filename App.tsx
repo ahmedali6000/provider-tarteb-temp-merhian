@@ -2,16 +2,22 @@ import React from 'react';
 import {I18nManager, StatusBar} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {TOKEN_KEY, OnBoarding_KEY, Language_KEY} from './src/utils/app';
-import {setToken, getUserData} from './src/redux/actions';
+
+import {setToken, setUser, logout} from './src/redux/actions';
+import {getProviderProfile} from './src/services/providerProfileService';
+
 import AppContainer from './src/navigation';
 import {useSelector, useDispatch} from 'react-redux';
 import 'react-native-gesture-handler';
 import {
   APP_VISITED_CHANGE,
-  CHANEG_NOTIFICATION_MESSAGE,
   CHANGE_APP_LANG,
   UPDATE_CREDIT,
   UPDATE_POINTS,
+  UPGRADE,
+  CHAHNGE_PAYMENT_FEATURE_STATUS,
+  CHAHNGE_FIXING_MODE_STATUS,
+  UPLOAD_IMAGE_REG,
 } from './src/redux/actions/ActionTypes';
 import messaging from '@react-native-firebase/messaging';
 import {useTranslation} from 'react-i18next';
@@ -42,165 +48,191 @@ function App() {
 
   const [ready, setReady] = React.useState(false);
 
-React.useEffect(() => {
-  let isMounted = true;
+  React.useEffect(() => {
+    let isMounted = true;
 
-const initApp = async () => {
-  try {
-    const onboarding = await AsyncStorage.getItem(OnBoarding_KEY);
-    dispatch({type: APP_VISITED_CHANGE, payload: onboarding});
+    const loadProviderProfile = async () => {
+      try {
+        const res = await getProviderProfile();
 
-    const lang = await AsyncStorage.getItem(Language_KEY);
-    const selectedLang = lang || 'en';
-    const isRTL = selectedLang === 'ar';
+        const data = res?.data || {};
+        const user = data?.user;
 
-    await i18n.changeLanguage(selectedLang);
-    dispatch({type: CHANGE_APP_LANG, payload: selectedLang});
+        if (user) {
+          dispatch(setUser(user));
+        }
 
-    /*
-     * قبل ما المستخدم يخلص OnBoarding:
-     * ممنوع Restart.
-     *
-     * بعد ما يخلص OnBoarding:
-     * نسمح بتطبيق RTL الحقيقي وإعادة التشغيل.
-     */
-    if (onboarding === 'visited_before' && I18nManager.isRTL !== isRTL) {
-      I18nManager.allowRTL(isRTL);
-      I18nManager.forceRTL(isRTL);
-      RNRestart.Restart();
-      return;
-    }
+        dispatch({
+          type: UPLOAD_IMAGE_REG,
+          payload:
+            data?.image_url ||
+            user?.image ||
+            user?.profile_photo_path ||
+            null,
+        });
 
-    const savedToken = await AsyncStorage.getItem(TOKEN_KEY);
-    dispatch(setToken(savedToken || ''));
+        dispatch({
+          type: UPDATE_CREDIT,
+          payload: data?.credit ?? data?.wallet ?? user?.wallet ?? 0,
+        });
 
-    if (savedToken) {
-      dispatch(getUserData());
-    }
+        dispatch({
+          type: UPDATE_POINTS,
+          payload: data?.stats?.points ?? user?.points ?? 0,
+        });
 
-    if (isMounted) {
-      setReady(true);
-    }
-  } catch (error) {
-    console.log('APP INIT ERROR:', error);
+        if (res?.upgrade !== undefined) {
+          dispatch({
+            type: UPGRADE,
+            payload: res.upgrade,
+          });
+        }
 
-    if (isMounted) {
-      setReady(true);
-    }
-  }
-};
+        if (user?.payment != 0) {
+          dispatch({
+            type: CHAHNGE_PAYMENT_FEATURE_STATUS,
+            payload: user?.payment,
+          });
 
-  initApp();
+          dispatch({
+            type: CHAHNGE_FIXING_MODE_STATUS,
+            payload: user?.fixing_mode,
+          });
+        }
+      } catch (error) {
+        console.log(
+          'GET PROVIDER PROFILE ERROR:',
+          error?.response?.data || error?.message,
+        );
 
-  requestNotifications(['alert', 'sound', 'badge'])
-    .then(({status}) => {
-      console.log('Notification permission:', status);
-    })
-    .catch(error => {
-      console.log('Notification permission error:', error);
-    });
+        if (error?.response?.status === 401) {
+          dispatch(logout());
+        }
+      }
+    };
 
-  requestForegroundNotificationPermission()
-    .then(() => {
-      console.log('Foreground notification permission ready');
+    const initApp = async () => {
+      try {
+        const onboarding = await AsyncStorage.getItem(OnBoarding_KEY);
+        dispatch({type: APP_VISITED_CHANGE, payload: onboarding});
 
-      /*
-       * مهم:
-       * اختبار Notifee كان مفيد، لكن بعد ما اشتغل احذفه
-       * عشان ما يطلعش إشعار اختبار كل مرة تفتح التطبيق.
-       */
-      // setTimeout(() => {
-      //   displayForegroundNotification({
-      //     notification: {
-      //       title: 'اختبار ترتيب',
-      //       body: 'لو ظهر الإشعار يبقى Notifee شغال',
-      //     },
-      //     data: {
-      //       test: '1',
-      //     },
-      //   }).catch(error => {
-      //     console.log('Local foreground notification test error:', error);
-      //   });
-      // }, 3000);
-    })
-    .catch(error => {
-      console.log('Foreground notification permission error:', error);
-    });
+        const lang = await AsyncStorage.getItem(Language_KEY);
+        const selectedLang = lang || 'en';
+        const isRTL = selectedLang === 'ar';
 
-  const unsubscribeOnMessage = messaging().onMessage(async remoteMessage => {
-    console.log(
-      '🔥 FCM FOREGROUND MESSAGE:',
-      JSON.stringify(remoteMessage),
-    );
+        await i18n.changeLanguage(selectedLang);
+        dispatch({type: CHANGE_APP_LANG, payload: selectedLang});
 
-    const data = remoteMessage?.data || {};
-    const rawType = data?.type;
+        if (onboarding === 'visited_before' && I18nManager.isRTL !== isRTL) {
+          I18nManager.allowRTL(isRTL);
+          I18nManager.forceRTL(isRTL);
+          RNRestart.Restart();
+          return;
+        }
 
-    /*
-     * شات:
-     * type هنا string = chat_message
-     * لا تعمل Number عليه.
-     */
-    if (rawType === 'chat_message') {
-      const incomingMessage = {
-        id: data?.message_id,
-        message_id: data?.message_id,
-        conversation_id: data?.conversation_id,
-        order_id: data?.order_id,
-        sender_id: data?.sender_id,
-        sender_role: data?.sender_role,
-        message_type: data?.message_type || 'text',
-        body: data?.body,
-        time: data?.time,
-        created_at: data?.created_at,
-        is_mine: false,
-      };
+        const savedToken = await AsyncStorage.getItem(TOKEN_KEY);
+        dispatch(setToken(savedToken || ''));
 
-      console.log('📩 EMIT CHAT MESSAGE:', incomingMessage);
+        if (savedToken) {
+          await loadProviderProfile();
+        }
 
-      emitChatMessageReceived(incomingMessage);
+        if (isMounted) {
+          setReady(true);
+        }
+      } catch (error) {
+        console.log('APP INIT ERROR:', error);
+
+        if (isMounted) {
+          setReady(true);
+        }
+      }
+    };
+
+    initApp();
+
+    requestNotifications(['alert', 'sound', 'badge'])
+      .then(({status}) => {
+        console.log('Notification permission:', status);
+      })
+      .catch(error => {
+        console.log('Notification permission error:', error);
+      });
+
+    requestForegroundNotificationPermission()
+      .then(() => {
+        console.log('Foreground notification permission ready');
+      })
+      .catch(error => {
+        console.log('Foreground notification permission error:', error);
+      });
+
+    const unsubscribeOnMessage = messaging().onMessage(async remoteMessage => {
+      console.log(
+        '🔥 FCM FOREGROUND MESSAGE:',
+        JSON.stringify(remoteMessage),
+      );
+
+      const data = remoteMessage?.data || {};
+      const rawType = data?.type;
+
+      if (rawType === 'chat_message') {
+        const incomingMessage = {
+          id: data?.message_id,
+          message_id: data?.message_id,
+          conversation_id: data?.conversation_id,
+          order_id: data?.order_id,
+          sender_id: data?.sender_id,
+          sender_role: data?.sender_role,
+          message_type: data?.message_type || 'text',
+          body: data?.body,
+          time: data?.time,
+          created_at: data?.created_at,
+          is_mine: false,
+        };
+
+        console.log('📩 EMIT CHAT MESSAGE:', incomingMessage);
+
+        emitChatMessageReceived(incomingMessage);
+
+        try {
+          await displayForegroundNotification(remoteMessage);
+        } catch (error) {
+          console.log('Display chat foreground notification error:', error);
+        }
+
+        return;
+      }
+
+      const type = Number(rawType);
+
+      if (type === 3) {
+        dispatch({
+          type: UPDATE_CREDIT,
+          payload: data?.credit,
+        });
+      } else if (type === 123) {
+        dispatch({
+          type: UPDATE_POINTS,
+          payload: data?.points,
+        });
+      } else if (type === 999) {
+        RNRestart.Restart();
+        return;
+      }
 
       try {
         await displayForegroundNotification(remoteMessage);
       } catch (error) {
-        console.log('Display chat foreground notification error:', error);
+        console.log('Display foreground notification error:', error);
       }
+    });
 
-      return;
-    }
-
-    /*
-     * أنواع الإشعارات القديمة الرقمية
-     */
-    const type = Number(rawType);
-
-    if (type === 3) {
-      dispatch({
-        type: UPDATE_CREDIT,
-        payload: data?.credit,
-      });
-    } else if (type === 123) {
-      dispatch({
-        type: UPDATE_POINTS,
-        payload: data?.points,
-      });
-    } else if (type === 999) {
-      RNRestart.Restart();
-      return;
-    }
-
-    try {
-      await displayForegroundNotification(remoteMessage);
-    } catch (error) {
-      console.log('Display foreground notification error:', error);
-    }
-  });
-
-  return () => {
-    isMounted = false;
-    unsubscribeOnMessage();
-  };
-}, [dispatch, i18n]);
+    return () => {
+      isMounted = false;
+      unsubscribeOnMessage();
+    };
+  }, [dispatch, i18n]);
 
   if (!ready) {
     return null;

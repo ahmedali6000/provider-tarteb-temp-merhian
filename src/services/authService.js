@@ -8,12 +8,16 @@ import messaging from '@react-native-firebase/messaging';
 const loginStart = () => ({type: Actions.LOGIN_START});
 const loginSuccess = () => ({type: Actions.LOGIN_SUCCESS});
 const loginFailure = () => ({type: Actions.LOGIN_FAILURE});
-const clearReduxData = () => ({type: Actions.CLEAR_REDUX_DATA});
+
+const PROVIDER_HEADERS = {
+  userType: 'provider',
+};
 
 const getFcmToken = async () => {
   try {
     await messaging().requestPermission();
     const fcmToken = await messaging().getToken();
+
     return fcmToken || '';
   } catch (error) {
     return '';
@@ -22,9 +26,15 @@ const getFcmToken = async () => {
 
 export const requestOtp = async phoneNumber => {
   try {
-    const response = await api.post('/request-otp', {
-      phone: phoneNumber,
-    });
+    const response = await api.post(
+      '/request-otp',
+      {
+        phone: phoneNumber,
+      },
+      {
+        headers: PROVIDER_HEADERS,
+      },
+    );
 
     return response.data;
   } catch (error) {
@@ -32,49 +42,17 @@ export const requestOtp = async phoneNumber => {
   }
 };
 
-export const verifyOtp = async (phoneNumber, otp) => {
+export const checkProviderPhone = async phoneNumber => {
   try {
-    const fcmToken = await getFcmToken();
-
-    const response = await api.post('/verify-otp', {
-      phone: phoneNumber,
-      otp,
-      fcmToken,
-    });
-
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
-};
-
-/**
- * دي أول خطوة بعد Google / Apple
- * بنسأل الباك إند:
- * هل الإيميل موجود وكامل البيانات؟
- * لو موجود يرجع login response
- * لو ناقص بيانات يرجع login false ونوديه CompleteMissingDataScreen
- */
-export const checkSocialLogin = async ({
-  provider,
-  providerId,
-  email,
-  name,
-  photo,
-  idToken,
-}) => {
-  try {
-    const fcmToken = await getFcmToken();
-
-    const response = await api.post('/check-social-login', {
-      provider,
-      provider_id: providerId,
-      email,
-      name,
-      photo,
-      id_token: idToken,
-      fcmToken,
-    });
+    const response = await api.post(
+      '/provider/check-phone',
+      {
+        phone: phoneNumber,
+      },
+      {
+        headers: PROVIDER_HEADERS,
+      },
+    );
 
     return response.data;
   } catch (error) {
@@ -83,29 +61,143 @@ export const checkSocialLogin = async ({
 };
 
 /**
- * دي بعد ما المستخدم يكمل الاسم والهاتف
- * ويروح OTP
- * وبعد تأكيد OTP نعمل create/update user ثم login
+ * Verify OTP
+ *
+ * يدعم الطريقتين:
+ *
+ * verifyOtp(phoneNumber, otp, joinAsProvider)
+ *
+ * أو:
+ *
+ * verifyOtp({
+ *   phone: phoneNumber,
+ *   otp: code,
+ *   joinAsProvider: true,
+ * })
  */
-export const verifySocialOtp = async ({
-  phoneNumber,
-  otp,
-  provider,
-  providerId,
-  email,
+export const verifyOtp = async (
+  phoneOrPayload,
+  otpValue,
+  joinAsProviderValue = false,
+) => {
+  try {
+    const fcmToken = await getFcmToken();
+
+    let phone = '';
+    let otp = '';
+    let joinAsProvider = false;
+
+    if (typeof phoneOrPayload === 'string') {
+      phone = phoneOrPayload;
+      otp = otpValue;
+      joinAsProvider = joinAsProviderValue === true;
+    } else if (
+      phoneOrPayload &&
+      typeof phoneOrPayload === 'object' &&
+      !Array.isArray(phoneOrPayload)
+    ) {
+      phone = phoneOrPayload.phone || phoneOrPayload.phoneNumber || '';
+      otp = phoneOrPayload.otp || phoneOrPayload.code || '';
+
+      joinAsProvider =
+        phoneOrPayload.joinAsProvider === true ||
+        phoneOrPayload.join_as_provider === true;
+    }
+
+    if (!phone) {
+      throw new Error('phone_required');
+    }
+
+    if (!otp) {
+      throw new Error('otp_required');
+    }
+
+    const response = await api.post(
+      '/verify-otp',
+      {
+        phone,
+        otp,
+        fcmToken,
+        join_as_provider: joinAsProvider,
+      },
+      {
+        headers: PROVIDER_HEADERS,
+      },
+    );
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+/**
+ * يستخدم في خطوات تسجيل الفني:
+ *
+ * step values:
+ * basic_info
+ * work_info
+ * profile_photo
+ * front_id_doc
+ * rear_id_doc
+ */
+export const completeProviderStep = async ({
+  step,
+  phone,
   name,
+  nationalId,
+  categoryId,
+  experienceYears,
+  profilePhoto,
+  frontIdDoc,
+  rearIdDoc,
 }) => {
   try {
     const fcmToken = await getFcmToken();
 
-    const response = await api.post('/verify-social-otp', {
-      phone: phoneNumber,
-      otp,
-      provider,
-      provider_id: providerId,
-      email,
-      name,
-      fcmToken,
+    const formData = new FormData();
+
+    formData.append('step', step);
+    formData.append('phone', phone);
+    formData.append('fcmToken', fcmToken);
+
+    if (name !== undefined && name !== null && String(name).trim() !== '') {
+      formData.append('name', String(name).trim());
+    }
+
+    if (
+      nationalId !== undefined &&
+      nationalId !== null &&
+      String(nationalId).trim() !== ''
+    ) {
+      formData.append('national_id', String(nationalId).trim());
+    }
+
+    if (categoryId !== undefined && categoryId !== null) {
+      formData.append('category_id', String(categoryId));
+    }
+
+    if (experienceYears !== undefined && experienceYears !== null) {
+      formData.append('experience_years', String(experienceYears));
+    }
+
+    if (profilePhoto) {
+      formData.append('profile_photo', profilePhoto);
+    }
+
+    if (frontIdDoc) {
+      formData.append('front_id_doc', frontIdDoc);
+    }
+
+    if (rearIdDoc) {
+      formData.append('rear_id_doc', rearIdDoc);
+    }
+
+    const response = await api.post('/provider/complete-step', formData, {
+      headers: {
+        ...PROVIDER_HEADERS,
+        'Content-Type': 'multipart/form-data',
+      },
     });
 
     return response.data;
@@ -114,15 +206,10 @@ export const verifySocialOtp = async ({
   }
 };
 
-export const registerUser = async (phoneNumber, firstName, lastName) => {
+export const getHomeCategories = async () => {
   try {
-    const fcmToken = await getFcmToken();
-
-    const response = await api.post('/register', {
-      phone: phoneNumber,
-      first_name: firstName,
-      last_name: lastName,
-      fcmToken,
+    const response = await api.get('/categories-provider', {
+      headers: PROVIDER_HEADERS,
     });
 
     return response.data;
@@ -132,49 +219,59 @@ export const registerUser = async (phoneNumber, firstName, lastName) => {
 };
 
 export const completeLogin = async (response, dispatch) => {
-  const token = response.access_token;
-  const user = response.userData;
+  try {
+    const token = response?.access_token;
+    const user = response?.userData || response?.user;
 
-  dispatch(loginStart());
+    if (!token || !user) {
+      throw new Error('Invalid login response');
+    }
 
+    dispatch(loginStart());
 
+    dispatch(setToken(token));
+    dispatch(setUser(user));
 
-
-  
-
-
-  dispatch(setToken(token));
-  dispatch(setUser(user));
- dispatch({type:Actions.UPGRADE,payload:response.upgrade})
-  if (response.userData?.payment != 0) {
     dispatch({
-      type: Actions.CHAHNGE_PAYMENT_FEATURE_STATUS,
-      payload: response.userData.payment,
+      type: Actions.UPGRADE,
+      payload: response?.upgrade,
+    });
+
+    if (user?.payment != 0) {
+      dispatch({
+        type: Actions.CHAHNGE_PAYMENT_FEATURE_STATUS,
+        payload: user?.payment,
+      });
+
+      dispatch({
+        type: Actions.CHAHNGE_FIXING_MODE_STATUS,
+        payload: user?.fixing_mode,
+      });
+    }
+
+    dispatch({
+      type: Actions.UPLOAD_IMAGE_REG,
+      payload: user?.image,
     });
 
     dispatch({
-      type: Actions.CHAHNGE_FIXING_MODE_STATUS,
-      payload: response.userData.fixing_mode,
+      type: Actions.UPDATE_CREDIT,
+      payload: response?.wallet || response?.credit || 0,
     });
+
+    dispatch({
+      type: Actions.UPDATE_ADRESSES_ARR,
+      payload: response?.addresses || [],
+    });
+
+    await AsyncStorage.setItem(TOKEN_KEY, token);
+    await AsyncStorage.setItem(USER_KEY, JSON.stringify(user));
+
+    dispatch(loginSuccess());
+
+    return true;
+  } catch (error) {
+    dispatch(loginFailure());
+    throw error;
   }
-
-  dispatch({
-    type: Actions.UPLOAD_IMAGE_REG,
-    payload: response.userData?.image,
-  });
-
-  dispatch({
-    type: Actions.UPDATE_CREDIT,
-    payload: response.wallet,
-  });
-
-  dispatch({
-    type: Actions.UPDATE_ADRESSES_ARR,
-    payload: response.addresses,
-  });
-
-  await AsyncStorage.setItem(TOKEN_KEY, token);
-  await AsyncStorage.setItem(USER_KEY, JSON.stringify(user));
-
-  dispatch(loginSuccess());
 };

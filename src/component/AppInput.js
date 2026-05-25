@@ -77,9 +77,9 @@ const styles = StyleSheet.create({
     marginEn: 10,
   },
   iconImage: {
-    width: 20,
-    height: 20,
-    marginEn: 10,
+    width: 24,
+    height: 24,
+    marginEnd: 10,
     resizeMode: 'contain',
   },
   clearButton: {
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: 'red',
     marginTop: 5,
-    textAlign: 'left',
+    textAlign: 'auto',
   },
 });
 

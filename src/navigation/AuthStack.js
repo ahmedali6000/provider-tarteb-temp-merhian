@@ -1,6 +1,7 @@
 import React from "react";
 import LoginScreen from "../screens/auth/v2/Login";
 import OTPScreen from "../screens/auth/v2/OTPScreen";
+import ProviderWorkInfoScreen from "../screens/auth/v2/ProviderWorkInfoScreen";
 import AccountNameScreen from "../screens/auth/v2/AccountNameScreen";
  
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -17,6 +18,10 @@ import MissingSocialInfoScreen from "../screens/auth/MissingSocialInfoScreen";
 // import AddressDetailsScreen from "../screens/Account/v2/address/AddressDetailsScreen";
 import CompleteMissingDataScreen from "../screens/auth/v2/CompleteMissingDataScreen";
 import AboutDocScreen from "../screens/auth/v2/AboutDocScreen";
+import ProviderProfilePhotoScreen from "../screens/auth/v2/ProviderProfilePhotoScreen";
+import ProviderFrontIdDocScreen from "../screens/auth/v2/ProviderFrontIdDocScreen";
+import ProviderRearIdDocScreen from "../screens/auth/v2/ProviderRearIdDocScreen";
+import ProviderRegistrationThanksScreen from "../screens/auth/v2/ProviderRegistrationThanksScreen";
  // import Welcome from "../screens/auth/Welcome";
 
 
@@ -31,20 +36,15 @@ export function AuthStack(props){
             {/* <Stack.Screen name="Welcome" component={Welcome} options={{headerShown:false}} /> */}
              <Stack.Screen name="AboutDocScreen" component={AboutDocScreen}  options={{headerShown:false}}/>
             <Stack.Screen name="LoginScreen" component={LoginScreen} options={{headerShown:false}} />
+            <Stack.Screen name="OTPScreen" component={OTPScreen} options={{headerShown:false}} />
             <Stack.Screen name="CompleteMissingDataScreen" component={CompleteMissingDataScreen} options={{headerShown:false}} />
             <Stack.Screen name="AccountNameScreen" component={AccountNameScreen} options={{headerShown:false}} />
-            {/* <Stack.Screen name="AddressesScreen" component={AddressesScreen} /> */}
-             
-            {/* <Stack.Screen name="AddressDetailsScreen" component={AddressDetailsScreen} /> */}
-            {/* <Stack.Screen name="PickAddressMapScreen" component={PickAddressMapScreen} /> */}
+            <Stack.Screen name="ProviderWorkInfoScreen" component={ProviderWorkInfoScreen} options={{headerShown:false}}  />
+            <Stack.Screen name="ProviderProfilePhotoScreen" component={ProviderProfilePhotoScreen} options={{headerShown:false}}  />
+            <Stack.Screen name="ProviderFrontIdDocScreen" component={ProviderFrontIdDocScreen} options={{headerShown:false}}  />
+            <Stack.Screen name="ProviderRearIdDocScreen" component={ProviderRearIdDocScreen} options={{headerShown:false}}  />
+            <Stack.Screen name="ProviderRegistrationThanksScreen" component={ProviderRegistrationThanksScreen} options={{headerShown:false}}  />
 
-
-            <Stack.Screen name="MissingSocialInfoScreen" component={MissingSocialInfoScreen} options={{headerShown:false}} />
-            <Stack.Screen name="OTPScreen" component={OTPScreen} options={{headerShown:false}} />
-            <Stack.Screen name="EnterPhone" component={EnterPhone} options={{headerShown:false}} />
-            <Stack.Screen name="RegisterScreen" component={RegisterScreen} options={{headerShown:false}} />
-            <Stack.Screen name="NewPasswordScreen" component={NewPasswordScreen} options={{headerShown:false}} />
-            <Stack.Screen name="TermsScreen" component={TermsScreen} options={{headerShown:false}} />
 
         </Stack.Navigator>
     );

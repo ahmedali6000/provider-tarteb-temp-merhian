@@ -1,672 +1,126 @@
 {
-     
+  "skip": "Skip",
+  "next": "Next",
+  "start_now": "Start now",
+
+  "onboarding": {
+    "title1": "Every request you complete builds customer trust",
+    "desc1": "Provide excellent service and earn higher ratings",
+
+    "title2": "Nearby job requests at your available time",
+    "desc2": "Receive requests from nearby customers and choose the time that suits you",
+
+    "title3": "Turn your skills today into a steady income source",
+    "desc3": "Receive customer requests and increase your income with simple steps"
+  },
  
-    "news": {
-        "t1": "Preventing Duplicate Requests for the Same Service",
-        "d1": "Now you cannot request the same service twice at the same time. For example, if you already have an ongoing plumbing request, it must be completed before you can submit another plumbing request. However, you can still request other services like cleaning or electrical work.",
-        
-        "t2": "Service Location Restrictions",
-        "d2": "We’ve added a feature to clarify the areas where we can serve you. If your location is too far from the available technicians, you won’t be able to complete the request. This helps us provide you with faster and more accurate service.",
-        
-        "t3": "Mandatory Cancellation Reason",
-        "d3": "When canceling any request, you must specify the reason. And if a technician has already accepted your request, a small penalty will be applied due to the late cancellation."
-        },
-        
+
+  "login": {
+    "welcome": "Welcome back",
+    "subtitle": "Enter your phone number to start receiving new requests.",
+    "phone": "Phone number",
+    "agree": "I agree to",
+    "terms": "Terms & Conditions and Privacy Policy",
+    "continue": "Continue",
+    "or": "Or",
+    "google": "Continue with Google",
+    "apple": "Continue with Apple",
+    "provider": "Are you a customer?",
+    "provider_sub": "Download the customer app now",
+    "download": "Download",
+    "otp_request_failed": "Failed to send verification code. Please try again.",
+    "social_failed": "Login failed. Please try again.",
+    "play_services_error": "Google Play Services are not available on this device.",
+
+     "cannot_open_link": "Could not open the link"
+  },
+
      
-        "invitation":{
-            "yes":"Yes",
-            "no": "No",
-            "ask":"Do you have a friend invitation code ?",
-            "enter":"Type your friend invitation code here",
-            "title":"Invitation Code",
-            "des":"we will send your friend a gift for this"
-        },
-        "welcome":{
-            "title":"Welcome to tarteb app .. fix your home problem now",
-            "btn1":"Login",
-            "btn2":"Register"
-        },
-        "socialLogin":{
-            "title":"Login with social media :",
-            "title2":"or login with :",
-            "loginfacebook":"Login with facebook",
-            "logingoogle":"Login with Google",
-            "loginapple":"Login with Apple"
-        },
-        "missingInfo":{
-            "sen":"Awesome .. please complete missing info and click Next.",
-            "err":"This info is missing ..",
-            "next":"Next"
-        },
-        "schedu":{
-            "t":"Choose your ordering type :",
-            "choose":{
-                "sch":{
-                    "t1":"Scheduled request",
-                    "t1help":"Choose a specific time on a specific day for the technician to visit you."
-                },
-                "now":{
-                    "t1":"Request now",
-                    "t1help":"Send the request now to the nearest technician because I want to fix the problem now."
-                }
-            },
-            "title":"Scheduling order",
-            "ch_day":"Choose the day",
-            "ch_hour":"Choose your favourite time",
-            "btn":"Schedule it"
+    "otp": {
+        "title": "Enter Verification Code",
+        "subtitle": "We sent a 6-digit code to {{phone}}",
+        "verify": "Verify",
+        "resend_prefix": "Didn't receive the code?",
+        "resend_now": "Resend",
+        "resend_timer": "Resend in {{time}} seconds",
+        "enter_full_otp": "Please enter the full code",
+        "resending_otp": "Resending code..."
+    }, 
 
-           },
-        "map":{
-            "lodingMapInfo":"Loading map information ...",
-            "settings":"settings",
-            "errors":{
-                "1":"Location permission is not granted",
-                "2":"It seems that location feature is not active .. activate it from the top then open the app again",
-                "3":"Location request timed out",
-                "4":"Google play service is not installed or has an older version",
-                "5":"Location service is not enabled or location mode is not appropriate for the current request.",
-                "-1":"Library crashed for some reason or the getCurrentActivity() returned null."
-            }
-           
-        },
-        "cashOff":"Sorry, online payment services are temporarily down. You can pay the technician in cash",
-        "HomeSents":{
-            "banner":{
-                "title":"Are you a service provider?",
-                "des":"If you have a specific craft, such as plumbing or electricity, subscribe with us now on the technician application"
-            }
-        },
-        "backHome":"Back Home",
-        "search":"Search",
-        "nodata":"No data found",
-        "sponsers":"Sponsers",
-        "internet":{
-            "no":{
-                "title":"No internet",
-                "des":"No internet connection found check your connection",
-                "btn":"Try again"
-            }
-        },
-        "maintenance":{
-            "title":"The application is being maintained",
-            "des":"The application is currently being maintained. Run the application and send requests later. Thank you"
-        },
-        "upgrade":{
-            "title":"Time To Update!",
-            "des":"We added lots of new features and fix some bugs to make your experience as smooth as possible",
-            "update":"UPDATE APP",
-            "not_now":"NOT NOW"
-        },
-        "blocked":{
-            "title":"Your account is temporarily blocked",
-            "des":"Your account is temporarily blocked Your account has been blocked because you did something that violates the application policies or disturbs others. To activate, contact us",
-            "btn":"Call now"
-        },
-        "reload":"Reload",
-        "homeTabs":{
-            "orders":"Orders"
-             
-        },
-        "extra":{
-            "goodmorning":"Good Morning",
-            "goodevening":"Good Evening"
-        },
-       
-        "errorHappened":"Connection error .. try again",
-        "changePhone":{
-            "title":"Write your new phone ",
-            "des":"Write your new phone number you want to change",
-            "err":{
-                "title": "Used before",
-                "des": "This phone is used before"
-            },
-            "done":"your new phone stored successfully"
-        },
+  "provider_register": {
+      "basic_info_title": "Complete your details",
+      "basic_info_subtitle": "Enter your name and national ID to complete your provider account",
+      "full_name": "Full name",
+      "full_name_placeholder": "Enter your full name",
+      "national_id": "National ID",
+      "national_id_placeholder": "Enter national ID",
+      "continue": "Continue",
       
-        "preview": {
-            "title" : "for previewing",
-            "category":{
-                "title":"Press on next to get provider for reviewing your task"
-            }
-        },
-        "viewall":"View All",
-        "service_num":"Service Number",
-        "understood":"Understood",
-        "select":"Select",
-        "selected":"Selected",
-        "show_more":"show more",
-        "categories":"Categories",
-        "edit":"edit",
-        "view":"view",
-        "remove":"remove",
-        "start_from": "starts from",
-        "no_search_res":"No results till now",
-        "ad":{
-            "title":"",
-            "des":"Do you want to open the sponser link ? ",
-            "btn1":"Open",
-            "btn2":"Close"
+      
 
-        }, 
-        "cadoo":{
-            "title":"Express your thanks to the technician with a tip",
-            "des":"This amount is in addition to the cost of the work as a thank you for the skill of the technician"
-        },
-        "women":{
-            "change":"Change",
-            "only":"No, Father is not in the home",
-            "father":"Yes, Father is not in the home"
-        },
-        "request":{
-                "preorder": {
-                    "title": "Pre-order Instructions",
-                    "items": {
-                    "1": "Communicate only via the app (for your safety).",
-                    "2": "Pay through the app only.",
-                    "3": "No response or cancellation = 20 EGP fine.",
-                    "4": "Any damage or complaint must be filed via the app within 24 hours.",
-                    "5": "The company is not responsible for any dealings outside the app."
-                    },
-                    "agree": "I agree to the above instructions",
-                    "confirm": "Confirm Order",
-                    "cancel": "Cancel"
-            },
-            "reqSentSuccessfully":"Request sent successfully .. Thanks",
-            "coupon":{
-                "title":"Have a promo-code ?",
-                "placeholder":"Enter the code ..",
-                "btn":"Apply",
-                "errors":{
-                    "empty":"Please add your promo-code",
-                    "repeated":"This promo-code already applied"
-                }
-            },
-            "minCost":"We would like to inform you that the minimum amount to place an order on our application is {{min}} pounds",
-            "title":"Request Details",
-            "sen":"Request information",
-            "btn":"Request Now",
-            "date":"Date",
-            "cate":"Categoty",
-            "dis":{
-                "noDis": "without discount",
-                "dis": "Discount"
-            },
-            "address":"Address",
-            "goHome":"Go Home",
-            "continueorder":"Request now",
-            "wallet_issue":{
-                "title":"Your wallet .",
-                "des22":"You can now pay cash to the technician because your wallet in Tarteb app is not sufficient.",
-                "des":"Your wallet is not sufficient, please charge it and come back here again",
-                "btn":"CHARGE WALLET"
-            }
-        },
-        "location":{
-            "title":"Your Address/Location",
-            "details":"Location details"             
-        },
-        "continue":"Continue",
-        "accept":{
-            "title":"Important notes",
-            "footer":"Read terms then confirm below",
-            "confirm_all":"Confirm all",
-            "warn":{
-                "title":"Confirmation required",
-                "des":"Please read and confirm to our roles"
-            }
-        },
-        "support":{
-            "title":"Support messages",
-            "remove":{
-                "title":"Do you want to remove this message ?",
-                "yes":"remove",
-                "no":"don't"
-            },
-            "sen":"Send us a message as a success partner",
-            "des":"If you want to send a message for application support, click here to send a message, and we will contact you as soon as possible",
-            "des2":"write your message and will read it as soon as possible .. thanks for contacting",
-            "donemssage":"Your message has been sent successfully .. thanks again",
-            "addbtn":"New Message",
-            "backbtn":"Go Back",
-            "page":{
-                "seen":"Seen",
-                "notseen":"Not Seen",
-                "contacted":"Contacted",
-                "notcontacted":"Not Contacted"
-            }
-        },
-       
-        "donthaveanaccount":"You don't have an account ?",
-        "cur":"EGP",
-        "point":"points",
-        
-        "create_account":"Create Account Now",
-        "ok": "OK",
-        "empty":"it's empty here.",
-        "remove_account":{
-            "sen":"By Confirming this alert your account will be deleted from the application.",
-            "btn1":"Remove",
-            "btn2":"Cancel"
-        },
-        "pricing_guide":{
-            "title":"Pricing guide",
-            "search_placeholder":"Search in categories"
-        },
-        "confirm_location":{
-            "title":"Update location",
-            "header":" Very good behavior to update your location manually .. great job.",
-            "sen":"YOUR current location now",
-            "btn":"CONFIRM"
-        },
-        "myaccount":{
-            "title":"My account",
-            "parts":{
-                "p1":{
-                    "h":"Main Information",
-                    "des":"manage your main information,phone number, email, language and change password and more.."
-                },
-                "p2":{
-                    "h":"Rate Us",
-                    "des":"rate us on the store"
-                },
-                "p3":{
-                    "h":"Sign Out",
-                    "des":"Leave the app & signout"
-                },
-                "p5":{
-                    "h":"Share the app",
-                    "des":"Share the app with friends"
-                },
-                "p6":{
-                    "h":"Call support"
-                    
-                },
-                 "p7":{
-                    "h":"My orders"
-                    
-                },
-                 "p8":{
-                    "h":"My Bundles"
-                    
-                }
-            }
-        },
-        "editaccount":{
+      "name_required": "Please enter your full name",
+      "invalid_name": "Please enter a valid name",
+      "name_letters_only": "Name must contain letters only",
+      "full_name_required": "Please enter at least first and last name",
+      "national_id_required": "Please enter your national ID",
+      "invalid_national_id": "National ID must be 14 digits",
 
-        },
-          "bundle":{
-            "title":"Bundles",
-            "welcomeHead":"Welcome sir",
-            "welcomeDes":"choose your selection",
-            "orders":"Orders",
-            "bundles":"Bundles",
-           
-            "modal":{
-                "select_hour":"Select your hour",
-                "success":{
-                    "title":"Pay to subscribe",
-                    "body":"click on pay and subscribe to go to payment screen and finish it",
-                    "patbtn":"Pay now",
-                    "closebtn":"close it"
-                },
-                "error":{
-                    "title":"Something went wrong",
-                    "errorhour":"You have to select an hour!",
-                    "days":"days",
-                    "enough_days":"You can't select more than",
-                    "you_have_to":"You have to select",
-                    "close":"close"
-                }
-            }
-        },
-        "order":{
-            "sch_at":"Scheduled at :",
-            "eye":{
-                "valid_provider_erre":"No technicians responding for your request because requesting load.",
-                "valid_provider_erre2":"No technicians responding for your request because requesting load. so please cancel the order and try again later",
-                "reload":"Resend Request"
-            },
-            "cancellation":{
-                "messages":"If you want to cancel the order, this will cost you 50 pounds due to the technician moving to you",
-                "messages1":"Are you sure you want to cancel the order?",
-                "btns":{
-                    "yes":"ok cancel",
-                    "no":"don't cancel"
-                }
-               },
-            "preview":{
-                "des":"If you cannot specify the required services in the section, you can click on a preview at a small cost, and do not worry when agreeing with the technician after the technician after the inspection, the amount will be deducted from the total .. always with you",
-                "btn":"Review only"
-            },
-            "content":{
-                "total":"Total",
-                "title_rev":"Request Details",
-                "next_step":"Next step",
-                "remove_all":"Remove all",
-                "empty":"Your request is empty",
-                "you_can_show":"View all categories"
-            },
-            "title":"My orders",
-            "ordersAndBundles":"Orders & Bundles",
-            "types":{
-                "Waiting":"Waiting",
-                "Accepted":"Accepted",
-                "Completed":"Completed",
-                "Cancelled":"cancelled"
-            },
-            "btn":{
-                "accept":"Accept",
-                "view":"view"
-            },
-            "screen":{
-                "requested_at":"Requested at",
-                "loaded_at":"last update",
-                "order":"order",
-                "correct_order":"Correct order",
-                "details":"Details",
-                "service":"service",
-                "waiting_sen":"Finding nearest provider ..",
-                "cancel_order":"Cancel order",
-                "fixed":"problem solved",
-                "return":"Return to orders",
-                "go_back":"Go Back",
-                "call":"call provider",
-                "refresh":"Refresh Data",
-                "price" : "price",
-                "cadoo": "Tip",
-                "address":"Address",
-                "notes":"Notes",
-                "no_note":"No notes added till now",
-                "order_preview":"Request for viewing",
-                "sentences":{
-                    "done": "done successfully",
-                    "removed": "Cancelled Order"
-                },
-                "pay_popup":{
-                    "text":"Do you to pay order Cost from you wallet?",
-                    "cost":"order cost",
-                    "cadoo":"technician tip",
-                    "pay":"Pay now",
-                    "close":"no, close",
-                    "cash":"Cash",
-                    "withWallet":"Wallet"
-                }
-            }
+      "work_info_title": "Add your work information",
+      "work_info_subtitle": "Help us show you suitable requests.",
+      "work_field": "Work field",
+      "choose_work_field": "Choose work field",
+      "work_field_required": "Please choose your work field",
+      "experience_years": "Years of experience",
+      "experience_years_placeholder": "Enter years of experience",
+      "experience_required": "Please enter years of experience",
+      "experience_invalid": "Years of experience is invalid",
+      "categories_load_failed": "Could not load work fields",
 
-        },
-        "credit":{
-            "title":"Your credit",
-            "no_sen":"You have 0 EGP in TARTEB !",
-            "sen1":"Note: You can redeem your money when your credit become more than 1000 EGP"
-        },
-        "Working_status":{
-            "on":"Your working status is ON",
-            "off":"Status is OFF now"
-        },
-        "splash": {
-                "t_splash_1": "Welcome to the application",
-                "des_splash_1": "It is an application that includes the most efficient technicians specialized in home services and helps you reach them from your location according to the closest.",
+      "profile_photo_title": "Add a profile photo",
+  "profile_photo_subtitle": "Use a clear photo to increase customers' trust in you",
+  "upload_photo": "Upload photo",
+  "profile_photo_required": "Please upload a profile photo",
+  "profile_photo_pick_failed": "Could not pick the photo",
+  "loading": "Loading..."
+  
+    },
 
+    "provider_join_modal": {
+    "title": "Join as a service provider",
+    "description": "This number is currently registered in the client app. If you want to join us as a service provider, you can continue registration now, or download the client app if you opened this app by mistake.",
+    "download_client_app": "Download client app",
+    "join_as_provider": "Yes, I want to join"
+  },
+  "homeTabs":{
+    "home":"Home",
+    "chat":"Chats",
+    "orders":"Orders",
+    "myaccount":"Account" 
+  },
+   "profile": {
+    "default_name": "Tarteb User",
+    "default_provider_category": "Service provider",
+    "edit_profile": "Edit profile",
+    "wallet": "Wallet",
+    "ratings": "Ratings",
+    "language": "Language",
+    "logout": "Log out",
+    "arabic": "Arabic",
+    "charge_balance": "Top up",
+    "current_wallet_balance": "Current wallet balance",
+    "currency_egp": "EGP",
+    "support_help": "Support and help",
+    "about_arrangement": "About Tarteb",
+    "remove_account": "Delete account",
+    "logout_sheet_title": "Log out",
+    "logout_sheet_desc": "Are you sure you want to log out of your account?",
+    "remove_account_sheet_title": "Delete account",
+    "remove_account_sheet_desc": "Your account and data will be permanently deleted. This action cannot be undone.",
+    "cancel": "Cancel",
+    "apply": "Apply"
+  },
 
-                "t_splash_2": "The best technicians to serve you",
-                "des_splash_2": "All you have to do is choose your problem, specify the location on the map, and wait for the technician to solve it as soon as he reaches you in a few minutes.",
-
-                "t_splash_3": "Life with us will be very easy",
-                "des_splash_3": "All of these features in one application guarantee you a distinctive use experience that helps you to accomplish home malfunctions easily and save your time, money and effort."
-        },
-
-        "auth":{
-                "image":{
-                    "done":{
-                        "title":"Awesome picture",
-                        "des":"your selected image has been updated successfully."
-                    }
-                },
-                "edit":"Edit",
-                "mainInfo":"Main information",
-                "accept_terms":{
-                    "p1":"By clicking OK you agree our",
-                    "p2":"Terms"
-                },
-                "titles":{
-                    "main_info":"Uploading main info",
-                    "select_category":"Select Category",
-                    "confirm_location": "Confirm location",
-                    "upload_profile_picture":"Upload profile picture"
-                },
-                "errors":{
-                    "name_req":"Your name is required",
-                    "phone":{
-                        "req":"please enter phone with 11 digits format",
-                        "used":"This phone is used before"
-                    },
-                    "password_req":"Please enter your password",
-                    "not_match":"Not matched with password",
-                    "area_req":"Please select your area",
-                    "gov_req":"Please select your governorate"
-                },
-                "newPassword":{
-                    "title":"New Password",
-                    "des":"Enter the new password here.",
-                    "newPassword":"New Password",
-                    "conNewPassword":"Confirm new password",
-                    "btn":"Update password",
-                    "alertTitle":"Not Matched", 
-                    "alertTXT": "Passwords are not matched .. check it again please" 
-                },
-                
-
-                "emptyAlertTitle":"Complete all inputs",
-                "emptyAlertTXT":"Enter all inputs to fire action successfully.",
-                "understood":"Understood",
-
-                "wrongAlertTitle":"Wrong phone or password!",
-                "wrongAlertTXT":"Please enter the correct phone and password ..",
-                "tryagain":"Try again",
-
-                "phoneNotFoundAlertTitle":"Phone not found",
-                "phoneNotFoundAlertTXT":"This phone is not found before",
-                
-            
-
-                "title_s1":"Login",
-                "title2":"TARTEB",
-                "title_s3":"Help you fix your home.",
-                "login_to_your_account":"Login to your account",
-
-                "registration_sen":"Complete this inputs then click next to finish Joining procedures. then move to the second step.",
-                "upload_image_sen":"Choose a picture from your gallery to be you profile picture",
-                "name":"name",
-                "name_ex_placeholder":"Ex. John Micheal",
-                "email":"email",
-                "wallet_placeholder":"Phone wallet Number ...",
-                "phone_placeholder":"Your phone",
-                "phone": "phone",
-                "select_gov": "Select your governorate",
-                "select_gov_search": "Search with governorate name",
-                "select_area": "Select your Area",
-                "select_area_search": "Search with area name",
-                "password":"password",
-                "con_password":"confirm password",
-                "login": "Sign in",
-                "forget_pass": "forgot password ?",
-
-                "updateAccount": "Update Account",
-
-                "remove_account":"Remove my account",
-
-                "forget_pass_des": "Please enter your phone to receive a verification code",
-                "sendCode": "SEND CODE"
-                
-            },
-        
-        "favourite":{
-            "no":"No items saved as favourites.",
-            "added":"Added to favourite successfully",
-            "removed":"Removed from favourite successfully"
-        },
-        "category":{
-            "title":"Choose services",
-            "cant":"You can't add this service",
-            "select_bot":"select your service",
-            "warn":{
-                "title":"Select services",
-                "des":"To Complete your order please select services from category"
-            },
-            "minCharge":{
-                "text":"You should know that the minimum amount to place an order is {{min}} pounds, so you can either choose another service or complete the order anyway.",
-                "continueAnyWay":"Continue anyway"
-            }
-            
-        },
-        "service":{
-            "requested_preview":"You have already made a preview request. Click here to view or delete it",
-            "requested_another_category":"You have already made a another category request. Click here to view or delete it",
-            "des":"Description",
-            "no_des":"No description added for this service",
-            "time_to_do":"Service count",
-            "total_cost": "Total cost:"
-        },
-       
-        "drawer":{
-            "home":"Home",
-            "all_categories":"All categories",
-            "wallet":"Wallet",
-            "favs":"Favourites",
-            "support":"Support",
-            "pricing_guide":"Pricing Guide",
-            "rate_review":"Rate & Review",
-            "about":"About us",
-            "pop_question":"FAQs",
-            "notifications":"Notifications",
-            "privacy_policy":"Privacy & Policy",
-            "terms_condition":"Terms & Conditions",
-            "logout":"Sign out",
-            "language":"Language"
-        },
-       
-        "change_pass":{
-            "enter_old":"Enter the old password",
-            "enter_new":"Write New password",
-            "confirm_new":"Confirm New password",
-            "update_btn":"Update Password",
-            "old_req":"Please write the old password here",
-            "old_wrong":"Old password is not correct",
-            "not_match":"Not matched with password"
-        },
-        
-        
-        "skip": "Skip",
-        "next": "Next",
-        "start_now": "Get Started",
-
-        "onboarding": {
-            "title1": "Reliable service you can\nalways depend on",
-            "desc1": "Transparent pricing and quality service you can trust every time.",
-
-            "title2": "Simple steps… Fast\nservice",
-            "desc2": "Choose what you need and book your service in just a few minutes.",
-
-            "title3": "Unexpected home problems\nruining your day?",
-            "desc3": "We provide skilled workers for all your home needs quickly and easily."
-        },
-   
-        "login": {
-            "welcome": "Welcome",
-            "subtitle": "Enter your phone number to continue and complete your requests easily.",
-            "phone": "Phone Number",
-            "agree": "I agree to ",
-            "terms": "Terms & Conditions and Privacy Policy.",
-            "continue": "Continue",
-            "or": "OR",
-            "google": "Continue with Google",
-            "apple": "Continue with Apple",
-            "provider": "Are you a service provider?",
-            "provider_sub": "Download our app to manage your orders. ",
-            "download": "Download App",
-            "social_failed": "Unable to sign in. Please try again",
-  "play_services_error": "Google Play Services is not available or needs an update"
-        },
-
-
-
-           "home_banner": {
-            "quick_order_title": "Unexpected issue? Request a technician\nquickly",
-            "quick_order_button": "Quick Request"
-            },
-
-
-        "otp": {
-                "title": "Enter Verification Code",
-                "subtitle": "We sent a 6-digit code to {{phone}}",
-                "verify": "Verify",
-                "resend_prefix": "Didn't receive the code?",
-                "resend_now": "Resend",
-                "resend_timer": "Resend in {{time}} seconds",
-                "enter_full_otp": "Please enter the full code",
-                "resending_otp": "Resending code..."
-            },
-            "account_name": {
-                "title": "Tell us your name",
-                "subtitle": "Your name will appear in your orders and profile.",
-                "first_name_label": "First Name",
-                "first_name_placeholder": "First Name",
-                "last_name_label": "Last Name",
-                "last_name_placeholder": "Last Name",
-                "continue_button": "Continue"
-            },
-
-        "noInternet": {
-            "title": "No internet connection",
-            "subtitle": "Check your internet connection and try again",
-            "button": "Retry"
-        },
-        "blocking": {
-            "title": "Your account has been blocked",
-            "subtitle": "Your account has been blocked, please contact support",
-            "button": "Contact support"
-        },
-        
-        "profile": {
-            "default_name": "User",
-            "level_golden": "Golden Account",
-            "level_silver": "Silver Account",
-            "level_prime": "Regular Account",
-            "points_label": "Loyalty Points",
-            "points_remaining": "{{count}} points left to reach",
-            "points_subtitle": "the bank account",
-            "edit_profile": "Edit Profile",
-            "wallet": "Wallet",
-            "addresses": "Addresses",
-            "language": "Language",
-            "arabic": "Arabic",
-            "logout": "Logout",
-            "remove_account": "Remove Account",
-            "support_help": "Support & Help",
-            "about_arrangement": "About Tarteb",
-            "apply": "Apply",
-            "cancel": "Cancel",
-            "logout_sheet_title": "Logout",
-            "logout_sheet_desc": "You will be logged out from this device, and you can sign in again at any time.",
-            "remove_account_sheet_title": "Remove Account",
-            "remove_account_sheet_desc": "Your account will be permanently deleted after confirmation, and this action cannot be undone."
-        },
-       "homev2": {
-            "search_placeholder": "What needs to be repaired or prepared?",
-            "recent_searches": "Recent Searches",
-            "search_results": "Search Results",
-            "no_search_results": "No results found",
-            "no_results": "No results found",
-            "view_details": "View details",
-            "currency": "EGP",
-            "default_name": "Tarteb User",
-            "default_location": "Choose from your locations"
-        },
-
-         
-       
-
-         "wallet": {
+       "wallet": {
             "title": "Wallet",
             "current_balance": "Current Wallet Balance",
             "currency": "EGP",
@@ -768,448 +222,63 @@
         },
         "common": {
             "ok": "Done",
-              "back_arrow": "Back",
+            "back_arrow": "Back",
+            "error": "Error",
             "loading": "sending otp now .."
         },
-         "loyalty": {
-            "title": "Loyalty & Rewards",
-            "points_title": "Loyalty Points",
-            "remaining_points": "{{count}} points remaining to reach",
-            "to_next_level": "the silver account",
-            "redeem_info": "When your balance reaches 2000 points, you can redeem them and buy a free monthly package worth 500 EGP.",
-            "redeem_button": "Redeem Points",
-            "account_levels": "Account Levels",
-            "level_prime_desc": "You get it when registering for the first time.",
-            "level_silver_desc": "You get it when reaching 1000 points.",
-            "level_golden_desc": "You get it when reaching 1500 points.",
-            "how_get_points": "How do you get points?",
-            "first_order": "First order",
-            "complete_order": "Completed order",
-            "rate_service": "Rate the service",
-            "two_success_orders_month": "2 successful orders in a month",
-            "five_success_orders": "5 successful orders",
-            "point_unit": "point"
-        },
-         "orders": {
-            "title": "Orders",
-            "pending": "Pending",
-            "accepted": "In Progress",
-            "complete": "Completed",
-            "canceled": "Canceled",
-            "sort_by": "Sort by:",
+
+
+         "ratings": {
+            "title": "Ratings",
+            "report": "Report",
+            "comments": "Comments",
+            "from_reviews": "From {{count}} reviews",
+            "empty_title": "No ratings yet",
+            "empty_description": "When orders are completed, customer ratings will appear here.",
+            "client": "Client",
+            "default_comment": "The service was excellent and the technician was on time.",
             "sort_latest": "Latest",
             "sort_oldest": "Oldest",
-            "sort_title": "Sort",
-            "currency": "EGP",
-            "chat_provider": "Chat with technician",
-            "no_pending": "No pending orders",
-            "no_accepted": "No in-progress orders",
-            "no_complete": "No completed orders",
-            "no_canceled": "No canceled orders",
-            "order_service": "Order Service",
-            "empty_pending_sub": "When you request a service, the orders awaiting confirmation will appear here.",
-            "empty_accepted_sub": "Services currently in progress or on the way to you will appear here.",
-            "empty_complete_sub": "Once a service is completed, it will appear here so you can review it or reorder it.",
-            "empty_canceled_sub": "If any order is canceled, you will find it here to view its details."
-        },
+            "sort_highest": "Highest rating",
+            "sort_lowest": "Lowest rating",
+            "sort_by": "Sort by {{label}}"
+          },
 
-        "services": {
-            "title": "Services",
-            "helper_start": "Not sure about the issue? Request a technical inspection",
-            "preview_request": "Inspection request",
-            "helper_end": "so the technician can identify the problem accurately.",
-            "search_placeholder": "Search for a service (e.g. replace siphon)",
-            "most_requested": "Most requested",
-            "all_services": "All services",
-            "currency": "EGP",
-            "request_service": "Request service",
-            "show_details": "Show details",
-            "no_services": "No services",
-            "no_services_subtitle": "No services have been added to this category yet.",
-             "all": "All",
-            "review_services": "Review Services",
-            "choose_quantity": "Select Quantity",
-            "confirm_quantity": "Confirm",
-            "cancel_service": "Remove Service",
-            "saved_services_title": "You have services from another category",
-    "saved_services_message": "You already have saved services from a different category. You can continue reviewing the current order or ignore them and move to the new category.",
-    "continue_to_review": "Continue to review",
-    "ignore_saved_services": "Ignore services"
-        },
-        "notifications": {
-            "title": "Notifications",
-            "mark_all_read": "Mark as read",
-            "empty_title": "You don’t have any notifications yet",
-            "empty_subtitle": "You’ll receive notifications when there are new updates."
-        },
-        "addresses": {
-        "title": "Addresses",
-        "add_new": "Add New Address",
-        "edit": "Edit",
-        "delete": "Delete Address",
-        "cancel": "Cancel",
-
-        "home": "Home",
-        "work": "Work",
-        "other": "Other",
-
-        "empty_title": "No addresses yet",
-        "empty_subtitle": "Add your address to request services quickly and easily.",
-        "no_address": "No address available",
-
-        "details_title": "Address Details",
-        "add_title": "Add Address",
-
-        "address": "Address",
-        "pick_location": "Select address location",
-        "select_location": "Choose Location",
-        "confirm_location": "Confirm Location",
-        "search_area": "Search for an area or address",
-
-        "address_name": "Address Type",
-        "flat": "Apartment",
-        "office": "Office",
-        "villa": "Villa",
-
-        "street": "Street",
-        "street_placeholder": "Street name",
-
-        "building_num": "Building",
-        "building_num_placeholder": "Building name or number",
-
-        "flat_num": "Apartment Number",
-        "flat_num_placeholder": "Enter apartment number",
-
-        "floor_num": "Floor Number",
-        "floor_num_placeholder": "Enter floor number",
-
-        "alternative_phone": "Alternative Phone (optional)",
-        "alternative_phone_placeholder": "Enter phone number",
-
-        "distinctive_mark": "Landmark (optional)",
-        "distinctive_mark_placeholder": "e.g. next to supermarket",
-
-        "save": "Save Address",
-
-        "delete_title": "Confirm Delete",
-        "delete_desc": "This address will be permanently deleted and cannot be recovered.",
-
-        "location_permission_title": "Allow location access",
-        "location_permission_message": "We need your location to accurately determine your address.",
-        "location_permission_denied": "Location permission denied",
-        "location_not_found": "Unable to detect your location",
-
-        "search_or_retry_location": "You can search for a location or try again.",
-        "retry_location": "Use My Location",
-
-        "detecting_location": "Detecting your location...",
-        "loading_address": "Fetching address...",
-        "selected_location_default": "Selected location",
-        "validation": {
-            "location_required": "Please select the address location",
-            "street_required": "Please enter the street name",
-            "building_required": "Please enter the building name or number",
-            "flat_required": "Please enter the apartment number",
-            "floor_required": "Please enter the floor number",
-            "phone_invalid": "Invalid phone number",
-            "general_error": "An error occurred while saving the address, please try again"
-            },
-            "office_num": "Office Number",
-            "office_num_placeholder": "Enter office number",
-            "villa_num": "Villa Number",
-            "villa_num_placeholder": "Enter villa number",
-
-             
-            "select_address": "Select address location",
-            "choose_address_for_order": "Choose your address to confirm the order",
-            "choose_address": "Choose delivery address",
-            "change": "Change"
-        },
-         "order_schedule": {
-            "title": "Service Time",
-            "subtitle": "We provide immediate service or scheduled booking based on your preference.",
-            "immediate": "Immediate service",
-            "scheduled": "Schedule appointment"
-        },
-        "schedule": {
-            "book_title": "Book Appointment",
-            "subtitle": "Choose the best time to schedule your visit.",
-            "choose_day": "Choose day",
-            "choose_time": "Choose time",
-            "confirm": "Confirm Appointment",
-            "today": "Today",
-            "am": "AM",
-            "pm": "PM",
-            "no_slots": "No available time slots for this day",
-            "booking_note": "To book this appointment, please pay a quarter of the service value to confirm the booking. This amount confirms the booking and will be deducted from the total service value later."
-        },
-         "order_details": {
-            "title": "Order Details",
-            "immediate_time": "Immediate",
-            "has_coupon": "Do you have a promo code?",
-            "coupon_placeholder": "Enter code",
-            "apply": "Apply",
-            "coupon_applied": "Coupon applied successfully",
-            "invalid_coupon": "Invalid coupon",
-            "coupon_error": "An error occurred while applying the coupon",
-            "invoice_details": "Invoice Details",
-            "discount": "Discount",
-            "total": "Total",
-            "your_notes": "Your Notes",
-            "price_note": "Service cost includes labor only, excluding materials.",
-            "confirm_order": "Confirm Order",
-            "before_confirm_title": "Before confirming",
-            "before_confirm_desc": "Please make sure the order details and address are correct before continuing.",
-            "alert": "Alert",
-            "conflict_order_message": "There is already an active order in the same category",
-            "submit_error": "An error occurred while submitting the order. Please try again",
-            "address_required": "Please choose an address before confirming the order",
-            "home_cost": "Home cost",
-            "kitchen_cost": "Kitchen cost",
-            "kitchen_bathroom_cost": "Kitchen and bathroom cost",
-            "furniture_cleaning": "Furniture cleaning",
-            "appliances_cleaning": "Appliance cleaning",
-              
-            "discount_found_title": "Discount found!",
-            "discount_found_message": "Great, a discount has been applied to your order automatically."
-            
-   
-        },
-
-
-
-
-
-        "order_view_details": {
-            "title": "Order Details",
-            "cancel_order": "Cancel order",
-            "order_info": "Order information",
-            "order_id": "Order number",
-            "order_status": "Order status",
-            "invoice_details": "Invoice details",
-            "total": "Total",
-            "your_notes": "Your notes",
-            "preview_order": "Preview request",
-            "service": "Service",
-            "immediate": "Now",
-            "no_address": "Not specified",
-            "order_not_found": "Order not found",
-            "status": {
-            "pending": "Pending",
-            "in_progress": "In progress",
-            "completed": "Completed",
-            "canceled": "Canceled",
-            "finish_order":"Finish order",
-            "tell_technician_details": "Would you like to tell the technician any details?",
-            "your_notes": "Your notes"
+          "edit_profile": {
+            "title": "Edit Profile",
+            "personal_data": "Personal Data",
+            "work_data": "Work Data",
+            "account_data": "Account Data",
+            "full_name": "Full Name",
+            "full_name_placeholder": "Enter your name",
+            "national_id": "National ID",
+            "work_field": "Work Field",
+            "experience_years": "Years of Experience",
+            "experience_years_placeholder": "Years of Experience",
+            "phone": "Phone Number",
+            "phone_placeholder": "Phone Number",
+            "email": "Email",
+            "email_placeholder": "example@email.com",
+            "save_changes": "Save Changes",
+            "name_required": "Please enter a valid name",
+            "email_invalid": "Please enter a valid email",
+            "experience_invalid": "Please enter a valid number of years",
+            "image_error": "An error occurred while choosing the image",
+            "updated_successfully": "Profile updated successfully",
+            "update_failed": "Unable to update profile"
+          },
+           "messages": {
+              "title": "Messages",
+              "client_name": "Client",
+              "default_message": "Start the conversation now",
+              "empty_title": "No messages yet",
+              "empty_description": "Messages between you and customers will appear here once any conversation starts.",
+              "filters": {
+                "all": "All",
+                "new": "New Orders",
+                "upcoming": "Upcoming Orders",
+                "active": "Active Orders"
+              }
             }
-        },
-
-         "order_summary": {
-                "order_number": "Order #{{id}}",
-                "details_link": "Order details",
-                "pending_found_title": "Available technicians found!",
-                "pending_found_subtitle": "Choose the right technician to start the service.",
-                "refresh_order": "Refresh order",
-                "order_info": "Order information",
-                "order_id": "Order number",
-                "order_status": "Order status",
-                "available_providers": "Available technicians",
-                "searching_providers": "Searching for technicians...",
-                "no_available_providers": "No technicians available right now",
-                "technician": "Technician",
-                "provider": "Provider",
-                "provider_years": "{{count}} years",
-                "request_provider": "Request technician",
-                "show_provider_card": "View technician ID",
-                "message_provider": "Message technician",
-                "service_price": "Service price",
-                "price_note": "The final service price may change if the technician finds additional work or if the work is less than expected.",
-                "adjust_price": "Adjust price",
-                "how_price_adjusted": "How is the price adjusted?",
-                "service_completed": "Service completed successfully",
-                "provider_card": "Technician ID",
-                "front_card": "Front side",
-                "back_card": "Back side",
-                "no_provider_card": "No ID card available for this technician",
-                "price_change_note": "The price will not change without your approval.",
-                "order_not_found": "Order not found",
-                "status": {
-                "pending": "Pending",
-                "in_progress": "In progress",
-                "completed": "Completed",
-                "canceled": "Canceled"
-                },
-                "price_steps": {
-                "step_1": "The technician inspects the issue after checking the work.",
-                "step_2": "The technician determines whether the price needs adjustment.",
-                "step_3": "The new price is shown before starting the service.",
-                "step_4": "You approve the price before the work is completed."
-                }
-            },
-
-        "order_qr": {
-            "title": "Adjust Price",
-            "done": "Code scanned"
-        },
-        
-         "payment_channels": {
-            "title": "Payment Methods",
-            "subtitle": "Choose the suitable payment method",
-            "card": "Visa / MasterCard",
-            "fawry": "Fawry",
-            "aman": "Aman",
-            "basata": "Basata",
-            "mobile_wallets": "E-Wallets",
-            "confirm": "Confirm"
-        },
-         "payment_code": {
-                "title": "Complete Payment",
-                "how_link": "How does payment work?",
-                "how_title": "How does payment work?",
-                "how_text": "Go to the nearest kiosk or market that supports the selected payment method, and pay using the code shown on this screen. The order will be updated automatically after verification.",
-                "description": "Pay the order amount using the following code.",
-                "done": "Payment done",
-                "note": "After tapping, the payment will be verified.",
-                "preparing": "Preparing payment code...",
-                "wait": "Please wait a moment",
-                "missing_data": "Payment data is incomplete",
-                "failed_prepare": "Could not prepare payment code",
-                "no_code": "Payment code is unavailable",
-                "error_title": "Something went wrong",
-                "retry": "Try again"
-            },
-            "rate": {
-                "title": "How was the service?",
-                "subtitle": "Your feedback helps us improve the service.",
-                "verybad": "Not satisfied",
-                "notBad": "Below expectations",
-                "Normal": "Acceptable",
-                "Good": "Good",
-                "veryGood": "Excellent",
-                "add_review_optional": "Add a comment (optional)",
-                "placeholder": "Write your notes about the service or technician...",
-                "btn": "Submit review"
-            },
-           "payment_methods": {
-                "title": "Payment Methods",
-                "subtitle": "Choose the suitable payment method",
-                "cash": "Paid in cash",
-                "wallet": "Bank and e-wallets",
-                "confirm": "Confirm",
-                "missing_order": "Order number is missing",
-                "cash_failed": "Could not complete cash order"
-                },
-             "wallet_payment": {
-                "title": "E-Wallet Payment",
-                "how": "How does payment work?",
-                "phone_label": "Phone number",
-                "send_request": "Send payment request",
-                "note": "A payment request will be sent to this number to complete the process.",
-                "sent_title": "Payment request sent",
-                "sent_subtitle": "We sent a payment request to your wallet on this number",
-                "check_phone": "Check your phone to complete the payment",
-                "confirm_payment": "Confirm payment completion",
-                "back_home": "Back to home",
-                "instructions": {
-                "title": "How does the payment work?",
-                "step_1": "Request the code sent to you in the message.",
-                "step_2": "Enter your wallet PIN to confirm the payment.",
-                "step_3": "The order amount will be deducted from your wallet.",
-                "step_4": "After finishing, reopen the app."
-                }
-            },
-            "bundles": {
-                "title": "Bundles",
-                "my_bundles": "My Bundles",
-                "show_bundles": "Show Bundles",
-                "no_active_bundle": "No active bundles currently",
-                "active_bundle_available": "You have an active bundle",
-                "cleaning_bundles": "Cleaning Bundles",
-                "save": "Save",
-                "starts_from": "Starts from",
-                "weekly_package": "Weekly package",
-                "monthly_package": "Monthly package",
-                "week_times": "times weekly",
-                "month_times": "times monthly",
-                "full_cleaning": "Full cleaning",
-                "previous_bundles": "Previous Bundles",
-                "previous_package": "Previous package",
-                "active_bundle": "Active package",
-                "active": "Active",
-                "finished": "Finished",
-                "ends_at": "Ends at",
-                "ended_at": "Ended at",
-                "no_bundles_title": "No bundles available currently",
-                "no_bundles_subtitle": "Available bundles will appear here when added",
-                "no_my_bundles_title": "You do not have bundles currently",
-                "no_my_bundles_subtitle": "You can choose a suitable bundle and subscribe easily",
-                 "active_bundles": "Active Bundles",
-                "completed_from": "completed from",
-                "visits": "visits",
-                "manage_bundle": "Active Package",
-                "no_next_visit": "No visit",
-                "completed_visits": "completed visits"
-                },
-                "preview_order": {
-                    "helper_text": "The technician will visit your location to inspect the issue and suggest the best solution.",
-                    "feature_problem_detection": "Accurate issue diagnosis",
-                    "feature_cost_duration": "Suggested cost and best completion time",
-                    "problem_description_label": "Describe the issue you are facing",
-                    "problem_description_placeholder": "Example: The AC is not working or makes noise...",
-                    "bottom_note": "You can continue the order with the service technician after the inspection.",
-                    "submit_button": "Request inspection now",
-                    "details": "Details"
-                },
-                "services_v2": {
-                    "preview_service": "Inspection service"
-                },
-                        "edit_profile": {
-                    "title": "Edit Profile",
-                    "full_name": "Full Name",
-                    "full_name_placeholder": "Enter your name",
-                    "phone": "Phone Number",
-                    "phone_placeholder": "Phone number",
-                    "email": "Email",
-                    "email_placeholder": "example@email.com",
-                    "save_changes": "Save Changes",
-                    "change_photo": "Change profile photo",
-                    "verified": "Verified",
-                    "name_required": "Please enter a valid name",
-                    "email_invalid": "Please enter a valid email address",
-                    "image_error": "Something went wrong while selecting the image",
-                    "updated_successfully": "Profile updated successfully",
-                    "update_failed": "Unable to update profile"
-                },
-                "complete_missing_data": {
-                    "title": "Complete your details",
-                    "subtitle": "Enter your name and phone number to verify your account",
-                    "name": "Name",
-                    "name_placeholder": "Enter your name",
-                    "name_required": "Please enter a valid name",
-                    "phone": "Phone number",
-                    "continue": "Continue",
-                    "connected_email": "Connected email"
-                    },
-                    "about_doc": {
-                    "subtitle": "Information and details",
-                    "no_content": "No content available right now"
-                }
-                         
-                
-         
-        
-    }
-
-
-
-
-
-     
-       
-    
-   
-
-     
-
+}
  

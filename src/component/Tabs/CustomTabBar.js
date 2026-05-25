@@ -9,8 +9,8 @@ import HomeActiveIcon from '../../../assets/app/svgs/home_active.svg';
 import OrderIcon from '../../../assets/app/svgs/order.svg';
 import OrderActiveIcon from '../../../assets/app/svgs/order_active.svg';
 
-import BundleIcon from '../../../assets/app/svgs/bundle.svg';
-import BundleActiveIcon from '../../../assets/app/svgs/bundle_active.svg';
+import ChatIcon from '../../../assets/app/svgs/chat.svg';
+import ChatActiveIcon from '../../../assets/app/svgs/chat_active.svg';
 
 import UserIcon from '../../../assets/app/svgs/user.svg';
 import UserActiveIcon from '../../../assets/app/svgs/user_active.svg';
@@ -25,9 +25,9 @@ export default function CustomTabBar({ state, descriptors, navigation }) {
       active: OrderActiveIcon,
       inactive: OrderIcon,
     },
-    BundleStack: {
-      active: BundleActiveIcon,
-      inactive: BundleIcon,
+    MessageStack: {
+      active: ChatActiveIcon,
+      inactive: ChatIcon,
     },
     AccountStack: {
       active: UserActiveIcon,

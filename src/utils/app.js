@@ -78,7 +78,7 @@ export const fontFamily = '';
 export const LOADER_TIME_DELAY_PLUS = 10;
 // export const domain = 'http://10.0.2.2:8000';
 export const domain = 'https://tarteb.app';
-export const googlePlayLink = "https://play.google.com/store/apps/details?id=app.tarteb.panel_customer";
+export const googlePlayLink = "https://play.google.com/store/apps/details?id=app.tarteb.panel_provider";
 export const AppStoreLink = "https://apps.apple.com/eg/app/tarteb/id1607684945"; 
 export const onelinkURLProvider = 'https://onelink.to/6t6ccw';
 export const onelink = 'https://onelink.to/gpfuat';

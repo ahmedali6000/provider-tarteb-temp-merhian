@@ -45,49 +45,37 @@ const ContactSupportScreen = ({navigation}) => {
     setSnackbarVisible(true);
   };
 
-  const sendNow = async () => {
-    if (!msg || !msg.trim()) {
-      setErrorText(t('contact_support.validation.message_required'));
-      return;
-    }
+const sendNow = async () => {
+  if (!msg || !msg.trim()) {
+    setErrorText(t('contact_support.validation.message_required'));
+    return;
+  }
 
-    try {
-      setLoading(true);
-      setErrorText('');
+  try {
+    setLoading(true);
+    setErrorText('');
 
-      await api.post('/send-support', {
-        msg: msg.trim(),
-      });
+    await api.post('/send-support', {
+      msg: msg.trim(),
+    });
 
-      setMsg('');
-      setDone(true);
+    setMsg('');
 
-      showSnackbar(
-        t('contact_support.toast.success_message'),
-        'success',
-      );
-    } catch (error) {
-      console.log(
-        'SEND SUPPORT ERROR:',
-        error?.response?.data || error?.message,
-      );
+    navigation.replace('SupportMessagesScreen');
+  } catch (error) {
+    console.log(
+      'SEND SUPPORT ERROR:',
+      error?.response?.data || error?.message,
+    );
 
-      showSnackbar(
-        t('contact_support.toast.error_message'),
-        'error',
-      );
-    } finally {
-      setLoading(false);
-      navigation.reset({
-        index: 0,
-        routes: [
-          {
-            name: 'SupportMessagesScreen',
-          },
-        ],
-      });
-          }
-  };
+    showSnackbar(
+      t('contact_support.toast.error_message'),
+      'error',
+    );
+  } finally {
+    setLoading(false);
+  }
+};
 
   useEffect(() => {
     return () => {

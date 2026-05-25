@@ -18,7 +18,6 @@ import { setUser, updateInfo } from "../../redux/actions";
 import { Done } from "../../components/Done";
 import axios from "axios";
 import PlatformTouchable from "../../components/PlatformTouchable";
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import { UPLOAD_IMAGE_REG } from "../../redux/actions/ActionTypes";
 import { useTranslation } from "react-i18next";
 import ImagePicker from 'react-native-image-crop-picker';

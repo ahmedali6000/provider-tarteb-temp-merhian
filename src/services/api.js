@@ -24,7 +24,7 @@ api.interceptors.request.use(
       }
 
       config.headers.lang = lang || 'en';
-      config.headers.userType = 'client';
+      config.headers.userType = 'provider';
       config.headers.versionCode =  (Platform.OS == ('android')) ? versionCodeAndroid : versionCodeIOS;
       config.headers.os =  Platform.OS;
     } catch (error) {

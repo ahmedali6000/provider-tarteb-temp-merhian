@@ -1,4 +1,4 @@
-package app.tarteb.panel_customer
+package app.tarteb.panel_provider
 
 import android.app.Application
 import com.facebook.react.PackageList
