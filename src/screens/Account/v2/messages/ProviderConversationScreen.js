@@ -821,12 +821,14 @@ const ProviderConversationScreen = ({navigation, route}) => {
     );
   };
 
-  const bottomPadding =
+    const bottomPadding =
     Platform.OS === 'ios'
-      ? keyboardVisible
-        ? IOS_INPUT_EXTRA_SPACE_WHEN_KEYBOARD_OPEN
-        : Math.max(insets.bottom, 8)
-      : Math.max(insets.bottom, 8);
+    ? keyboardVisible
+      ? IOS_INPUT_EXTRA_SPACE_WHEN_KEYBOARD_OPEN
+      : Math.max(insets.bottom, 8)
+    : keyboardVisible
+    ? 0
+    : Math.max(insets.bottom, 8);
 
   if (loading) {
     return (
@@ -873,10 +875,10 @@ const ProviderConversationScreen = ({navigation, route}) => {
 
   return (
     <View style={styles.safeArea}>
-      <KeyboardAvoidingView
-        style={styles.keyboardView}
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-        keyboardVerticalOffset={0}>
+        <KeyboardAvoidingView
+            style={styles.keyboardView}
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            keyboardVerticalOffset={0}>
         {renderHeader()}
 
         <View style={styles.messagesContainer}>
@@ -1091,11 +1093,11 @@ const styles = StyleSheet.create({
     color: COLORS.muted,
   },
 
-  bottomArea: {
-    backgroundColor: COLORS.white,
-    borderTopWidth: 1,
-    borderTopColor: COLORS.border,
-  },
+ bottomArea: {
+  backgroundColor: COLORS.white,
+  borderTopWidth: 1,
+  borderTopColor: COLORS.border,
+},
   quickRepliesWrap: {
     backgroundColor: COLORS.white,
     paddingTop: 8,

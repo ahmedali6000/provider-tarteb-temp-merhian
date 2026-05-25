@@ -287,6 +287,16 @@
                 "upcoming": "طلبات قادمة",
                 "active": "طلبات جارية"
                 }
+            },
+
+             "chat": {
+                "provider_quick_1": "أنا في الطريق إليك",
+                "provider_quick_2": "سأصل خلال 10 دقائق",
+                "provider_quick_3": "من فضلك أرسل موقعك بدقة",
+                "provider_quick_4": "تم الوصول إلى الموقع",
+                "provider_quick_5": "سأبدأ فحص المشكلة الآن",
+                "provider_quick_6": "تم الانتهاء من الخدمة",
+                "provider_quick_7": "هل يوجد أي تفاصيل إضافية؟"
             }
  
   
